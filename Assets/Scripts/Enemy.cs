@@ -14,10 +14,6 @@ public class Enemy : MonoBehaviour
     int advanceLt=0;
     Coroutine advanceRt;
 
-    [Header("Strafing")]
-    public bool canStrafe=true;
-    public float strafeIntervalMin=.5f, strafeIntervalMax=3, strafeTime=.5f;
-
     void Awake()
     {
         pivot = transform.parent.gameObject;
@@ -29,9 +25,9 @@ public class Enemy : MonoBehaviour
         StartCoroutine(strafing());
     }
 
-    void advance()
+    public void advance()
     {
-        StartCoroutine(advancing());
+        advanceRt = StartCoroutine(advancing());
     }
 
     IEnumerator advancing()
@@ -48,17 +44,23 @@ public class Enemy : MonoBehaviour
         reached=true;
 
         canStrafe=false;
-
-        Destroy(pivot);
     }
 
-    void stopAdvance()
+    public void stopAdvance()
     {
         LeanTween.cancel(advanceLt);
 
         if(advanceRt!=null)
         StopCoroutine(advanceRt);
+        
+        if(strafeRt!=null)
+        StopCoroutine(strafeRt);
     }
+
+    [Header("Strafing")]
+    public bool canStrafe=true;
+    public float strafeIntervalMin=.35f, strafeIntervalMax=3, strafeTimeMin=.5f, strafeTimeMax=1;
+    Coroutine strafeRt;
 
     IEnumerator strafing()
     {
@@ -68,19 +70,21 @@ public class Enemy : MonoBehaviour
 
             if(canStrafe && !reached)
             {
-                StartCoroutine(strafeee());
+                strafe();
             }
         }
     }
 
     public void strafe()
     {
-        StartCoroutine(strafeee());
+        strafeRt = StartCoroutine(strafeee());
     }
 
     IEnumerator strafeee()
     {
         stopAdvance();
+
+        canStrafe=false;
 
         int dir;
 
@@ -89,10 +93,50 @@ public class Enemy : MonoBehaviour
         else
             dir=-1;
 
-        LeanTween.rotateY(pivot, pivot.transform.localEulerAngles.y + 45*dir, strafeTime).setEaseInOutSine();
+        float time = Random.Range(strafeTimeMin, strafeTimeMax);
+        
+        LeanTween.rotateY(pivot, pivot.transform.localEulerAngles.y + 45*dir, time).setEaseInOutSine();
 
-        yield return new WaitForSeconds(strafeTime);
+        yield return new WaitForSeconds(time);
 
-        advance();
+        if(!reached)
+        {
+            canStrafe=true;
+            advance();
+        }
+    }
+
+    Collider _other;
+    bool triggering;
+
+    void OnTriggerStay(Collider other)
+    {
+        if(other.gameObject.layer==9)
+        {
+            triggering=true;
+            _other = other;
+
+            stopAdvance();
+            LeanTween.moveLocalZ(gameObject, transform.localPosition.z+.01f, 0);
+        }
+    }
+    void OnTriggerExit(Collider other)
+    {
+        if(other.gameObject.layer==9 && !reached)
+        {
+            triggering=false;
+
+            advance();
+        }
+    }
+
+    void Update()
+    {
+        if(triggering && !_other && !reached)
+        {
+            triggering=false;
+            
+            advance();
+        }
     }
 }

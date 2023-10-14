@@ -271,8 +271,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemy: {fileID: 6129577774305185177, guid: 6ef0c206a9bf8064e921658864de268e, type: 3}
-  spawnTimeMin: 2
-  spawnTimeMax: 5
+  spawnTimeMin: 1
+  spawnTimeMax: 4
 --- !u!4 &500677710
 Transform:
   m_ObjectHideFlags: 0
@@ -602,11 +602,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3549827946026433794, guid: 6ef0c206a9bf8064e921658864de268e,
-        type: 3}
-      propertyPath: strafeIntervalMin
-      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 6129577774305185177, guid: 6ef0c206a9bf8064e921658864de268e,
         type: 3}
