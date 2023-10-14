@@ -3,19 +3,23 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Enemy
+  - Playercam
+  - camwiggle
+  - camshake
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Player
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
-  - 
+  - PlayerTrigger
+  - PlayerBullet
+  - Enemy
+  - EnemyTrigger
+  - EnemyBullet
   - 
   - 
   - 

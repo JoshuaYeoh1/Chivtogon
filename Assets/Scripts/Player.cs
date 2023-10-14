@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    OverheadParry ovPa;
+
+    void Awake()
+    {
+        ovPa=GetComponent<OverheadParry>();
+    }
+
     void Update()
     {
         if(canTurn)
@@ -18,128 +25,36 @@ public class Player : MonoBehaviour
             }
         }
 
-        if(Input.GetKeyDown(KeyCode.S) && canOverhead)
+        if(Input.GetKeyDown(KeyCode.S) && ovPa.canOverhead)
         {
-            overheadRt = StartCoroutine(overhead());
+            ovPa.overhead();
         }
-
-        if(Input.GetKeyDown(KeyCode.W))
+        else if(Input.GetKeyDown(KeyCode.W))
         {
-            if(windingUp)
+            if(ovPa.windingUp)
             {
-                cancelOverhead();
+                ovPa.cancelOverhead();
             }
-            else if(canParry)
+            else if(ovPa.canParry)
             {
-                parryRt = StartCoroutine(parry());
+                ovPa.parry();
             }
         }
     }
 
     [Header("Turning")]
     public bool canTurn=true;
-    public float turnDeg=45;
-    public float turnTime=.5f, turnCooldown=0;
+    public float turnTime=.5f;
     Coroutine turnRt;
 
     IEnumerator turn(int dir)
     {
         canTurn=false;
 
-        LeanTween.rotateY(gameObject, transform.eulerAngles.y + dir*turnDeg, turnTime).setEaseOutExpo();
+        LeanTween.rotateY(gameObject, transform.eulerAngles.y + dir*45, turnTime).setEaseOutExpo();
 
         yield return new WaitForSeconds(turnTime);
 
-        yield return new WaitForSeconds(turnCooldown);
-
         canTurn=true;
-    }
-
-    [Header("Overhead")]
-    public GameObject weapon;
-    public bool canOverhead=true, windingUp;
-    public float windUpTime=.5f, swingCooldown=.5f;
-    Coroutine overheadRt;
-
-    IEnumerator overhead()
-    {
-        weapon.SetActive(true);
-
-        canOverhead=canParry=false;
-
-        windingUp=true;
-
-        yield return new WaitForSeconds(windUpTime);
-
-        windingUp=false;
-
-        LeanTween.rotateX(weapon, 0, 0);
-
-        LeanTween.rotateX(weapon, 90, .1f).setEaseOutExpo();
-
-        yield return new WaitForSeconds(swingCooldown);
-
-        LeanTween.rotateX(weapon, 0, 0);
-
-        weapon.SetActive(false);
-
-        canOverhead=canParry=true;
-    }
-
-    void cancelOverhead()
-    {
-        if(overheadRt!=null)
-        StopCoroutine(overheadRt);
-
-        weapon.SetActive(false);
-
-        canOverhead=canParry=true;
-
-        windingUp=false;
-    }
-    
-    [Header("Parry")]
-    public GameObject shield;
-    public bool canParry=true, parrying;
-    public float parryTime=.1f, protectTime=.3f, unparryTime=.5f;
-    Coroutine parryRt;
-
-    IEnumerator parry()
-    {
-        canOverhead=canParry=false;
-
-        shield.SetActive(true);
-
-        LeanTween.rotateX(shield, 0, 0);
-
-        LeanTween.rotateX(shield, -90, parryTime).setEaseOutExpo();
-
-        yield return new WaitForSeconds(parryTime);
-
-        parrying=true;
-
-        yield return new WaitForSeconds(protectTime);
-
-        parrying=false;
-
-        LeanTween.rotateX(shield, 0, unparryTime).setEaseOutExpo();
-
-        yield return new WaitForSeconds(unparryTime);
-
-        shield.SetActive(false);
-
-        canOverhead=canParry=true;
-    }
-
-    void cancelParry()
-    {
-        if(parryRt!=null)
-        StopCoroutine(parryRt);
-
-        shield.SetActive(false);
-
-        canOverhead=canParry=true;
-
-        parrying=false;
     }
 }
