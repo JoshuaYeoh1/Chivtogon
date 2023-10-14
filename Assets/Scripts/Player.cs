@@ -44,7 +44,7 @@ public class Player : MonoBehaviour
 
     [Header("Turning")]
     public bool canTurn=true;
-    public float turnTime=.5f;
+    public float turnTime=.35f;
     Coroutine turnRt;
 
     IEnumerator turn(int dir)
