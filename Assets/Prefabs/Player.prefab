@@ -213,7 +213,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canTurn: 1
-  turnTime: 0.35
+  turnTime: 0.2
 --- !u!114 &6294029624563691482
 MonoBehaviour:
   m_ObjectHideFlags: 0

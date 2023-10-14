@@ -59,14 +59,14 @@ public class Enemy : MonoBehaviour
 
     [Header("Strafing")]
     public bool canStrafe=true;
-    public float strafeIntervalMin=.35f, strafeIntervalMax=3, strafeTimeMin=.5f, strafeTimeMax=1;
+    public float strafeTimeMin=.5f, strafeTimeMax=1, strafeIntervalMax=3;
     Coroutine strafeRt;
 
     IEnumerator strafing()
     {
         while(true)
         {
-            yield return new WaitForSeconds(Random.Range(strafeIntervalMin, strafeIntervalMax));
+            yield return new WaitForSeconds(Random.Range(strafeTimeMin, strafeIntervalMax));
 
             if(canStrafe && !reached)
             {
@@ -135,7 +135,7 @@ public class Enemy : MonoBehaviour
         if(triggering && !_other && !reached)
         {
             triggering=false;
-            
+
             advance();
         }
     }
