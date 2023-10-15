@@ -77,7 +77,7 @@ public class Singleton : MonoBehaviour
     [Header("Player")]
     public bool isPlayerAlive=true;
     public bool controlsEnabled=true;
-    GameObject player;
+    public GameObject player;
     Camera cam;
     public Vector3 playerPos;
 

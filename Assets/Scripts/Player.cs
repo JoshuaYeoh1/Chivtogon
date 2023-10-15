@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    OverheadParry ovPa;
+    [HideInInspector] public OverheadParry ovPa;
 
     void Awake()
     {
@@ -25,20 +25,13 @@ public class Player : MonoBehaviour
             }
         }
 
-        if(Input.GetKeyDown(KeyCode.S) && ovPa.canOverhead)
+        if(Input.GetKeyDown(KeyCode.S))
         {
             ovPa.overhead();
         }
         else if(Input.GetKeyDown(KeyCode.W))
         {
-            if(ovPa.windingUp)
-            {
-                ovPa.cancelOverhead();
-            }
-            else if(ovPa.canParry)
-            {
-                ovPa.parry();
-            }
+            ovPa.parry();
         }
     }
 
@@ -56,5 +49,27 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(turnTime);
 
         canTurn=true;
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.layer==10)
+        {
+            if(ovPa.parrying)
+            {
+                ovPa.cancelParry();
+
+                other.GetComponent<EnemyWeapon>().ovPa.interrupt();
+            }
+            else
+            {
+                hit();
+            }
+        }
+    }
+
+    public void hit()
+    {
+        ovPa.interrupt();
     }
 }

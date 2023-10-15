@@ -120,6 +120,27 @@ public class Enemy : MonoBehaviour
             LeanTween.moveLocalZ(gameObject, transform.localPosition.z+.01f, 0);
         }
     }
+    void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.layer==6)
+        {
+            facedByPlayer=true;
+        }
+
+        if(other.gameObject.layer==7)
+        {
+            if(ovPa.parrying)
+            {
+                ovPa.cancelParry();
+
+                player.ovPa.interrupt();
+            }
+            else
+            {
+                hit();
+            }
+        }
+    }
     void OnTriggerExit(Collider other)
     {
         if(other.gameObject.layer==9 && !reached)
@@ -128,9 +149,14 @@ public class Enemy : MonoBehaviour
 
             advance();
         }
+
+        if(other.gameObject.layer==6)
+        {
+            facedByPlayer=false;
+        }
     }
 
-    void Update()
+    void LateUpdate()
     {
         if(triggering && !_other && !reached)
         {
@@ -138,5 +164,98 @@ public class Enemy : MonoBehaviour
 
             advance();
         }
+    }
+
+    Player player;
+    OverheadParry ovPa;
+
+    void Start()
+    {
+        player=GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        ovPa=GetComponent<OverheadParry>();
+
+        StartCoroutine(attacking());
+    }
+
+    [Header("Attack")]
+    public float atkIntervalMin=.5f;
+    public float atkIntervalMax=2, checkParryChance=.05f;
+    public float feintChance=.3f, feintIntervalMin=.2f, feintIntervalMax=.45f;
+
+    IEnumerator attacking()
+    {
+        while(true)
+        {
+            yield return new WaitForSeconds(Random.Range(atkIntervalMin,atkIntervalMax));
+
+            if(reached)
+            {
+                if(Random.Range(0f,1f) <= checkParryChance)
+                {
+                    ovPa.parry();
+                }
+                else
+                {
+                    ovPa.overhead();
+
+                    if(Random.Range(0f,1f) <= feintChance)
+                    {
+                        yield return new WaitForSeconds(Random.Range(feintIntervalMin,feintIntervalMax));
+
+                        ovPa.parry();
+                    }
+                }
+            }
+        }
+    }
+
+    [Header("Defend")]
+    public bool facedByPlayer;
+    public bool canParry=true;
+    public float parryChance=.5f, parryIntervalMin=.3f, parryIntervalMax=.5f, feintToParryTime=.1f;
+
+    void Update()
+    {
+        if(facedByPlayer && player.ovPa.windingUp && canParry)
+        {
+            canParry=false;
+            StartCoroutine(parrying());
+            StartCoroutine(parryCooldown());
+        }
+    }
+
+    IEnumerator parrying()
+    {
+        if(Random.Range(0f,1f) <= parryChance)
+        {
+            yield return new WaitForSeconds(Random.Range(parryIntervalMin,parryIntervalMax));
+
+            if(!ovPa.windingUp)
+            {
+                ovPa.parry();
+            }
+            else
+            {
+                ovPa.cancelOverhead();
+
+                yield return new WaitForSeconds(feintToParryTime);
+
+                ovPa.parry();
+            }
+
+            yield return new WaitForSeconds(Random.Range(parryIntervalMin,parryIntervalMax));
+        }
+    }
+
+    IEnumerator parryCooldown()
+    {
+        yield return new WaitForSeconds(player.ovPa.windUpTime);
+
+        canParry=true;
+    }
+
+    public void hit()
+    {
+        ovPa.interrupt();
     }
 }

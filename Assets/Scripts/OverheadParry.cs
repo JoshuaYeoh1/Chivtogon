@@ -7,17 +7,20 @@ public class OverheadParry : MonoBehaviour
     [Header("Overhead")]
     public GameObject weapon;
     public bool canOverhead=true, windingUp;
-    public float windUpTime=.5f, swingCooldown=.5f;
+    public float windUpTime=.5f, swingCooldown=.5f, interruptTime=.75f;
     Coroutine overheadRt;
 
     public void overhead()
     {
+        if(canOverhead)
         overheadRt = StartCoroutine(overheading());
     }
 
     public IEnumerator overheading()
     {
         weapon.SetActive(true);
+
+        LeanTween.rotateX(weapon, 0, 0);
 
         canOverhead=canParry=false;
 
@@ -27,9 +30,7 @@ public class OverheadParry : MonoBehaviour
 
         windingUp=false;
 
-        LeanTween.rotateX(weapon, 0, 0);
-
-        LeanTween.rotateX(weapon, weapon.transform.localEulerAngles.x+90, .1f).setEaseOutExpo();
+        LeanTween.rotateX(weapon, weapon.transform.localEulerAngles.x+90, 0).setEaseInOutSine();
 
         yield return new WaitForSeconds(swingCooldown);
 
@@ -45,22 +46,47 @@ public class OverheadParry : MonoBehaviour
         if(overheadRt!=null)
         StopCoroutine(overheadRt);
 
+        LeanTween.rotateX(weapon, 0, 0);
+
         weapon.SetActive(false);
 
         canOverhead=canParry=true;
 
         windingUp=false;
     }
+
+    public void interrupt()
+    {
+        cancelOverhead();
+        cancelParry();
+
+        StartCoroutine(interrupted());
+    }
+    IEnumerator interrupted()
+    {
+        canOverhead=false;
+
+        yield return new WaitForSeconds(interruptTime);
+
+        canOverhead=true;
+    }
     
     [Header("Parry")]
     public GameObject shield;
     public bool canParry=true, parrying;
-    public float parryTime=.1f, protectTime=.4f, unparryTime=.1f;
+    public float parryTime=0, protectTime=.4f, unparryTime=.5f;
     Coroutine parryRt;
 
     public void parry()
     {
-        parryRt = StartCoroutine(parryyy());
+        if(windingUp)
+        {
+            cancelOverhead();
+        }
+        else if(canParry)
+        {
+            parryRt = StartCoroutine(parryyy());
+        }
     }
 
     public IEnumerator parryyy()
@@ -94,6 +120,8 @@ public class OverheadParry : MonoBehaviour
     {
         if(parryRt!=null)
         StopCoroutine(parryRt);
+
+        LeanTween.rotateX(shield, 0, 0);
 
         shield.SetActive(false);
 

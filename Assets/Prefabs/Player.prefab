@@ -231,12 +231,13 @@ MonoBehaviour:
   windingUp: 0
   windUpTime: 0.5
   swingCooldown: 0.5
+  parriedCooldown: 0.5
   shield: {fileID: 5106083080487964445}
   canParry: 1
   parrying: 0
-  parryTime: 0.1
+  parryTime: 0
   protectTime: 0.4
-  unparryTime: 0.1
+  unparryTime: 0.5
 --- !u!136 &1606325432878768890
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -468,6 +469,7 @@ GameObject:
   - component: {fileID: 4656505630335726256}
   - component: {fileID: 2755367036621521104}
   - component: {fileID: 1898954661834969405}
+  - component: {fileID: 2058965138704462871}
   m_Layer: 7
   m_Name: model
   m_TagString: Untagged
@@ -555,7 +557,7 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -563,6 +565,33 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+--- !u!54 &2058965138704462871
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6704460304483069148}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &6981817011306852000
 GameObject:
   m_ObjectHideFlags: 0
