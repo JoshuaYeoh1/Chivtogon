@@ -9,8 +9,8 @@ public class EnemyAdvance : MonoBehaviour
     public Animator anim;
 
     Vector3 startPos;
-    public bool reached, triggering;
-    public float goalZMin=1.75f, goalZMax=2.25f, travelTimeMin=4, travelTimeMax=6;
+    public bool reached;
+    public float goalZMin=1.2f, goalZMax=1.8f, travelTimeMin=4, travelTimeMax=5;
     
     void Awake()
     {
@@ -36,7 +36,8 @@ public class EnemyAdvance : MonoBehaviour
 
         float time = travelTime*(transform.localPosition.z-goalZ)/(startPos.z-goalZ);
 
-        advanceLt = LeanTween.moveLocalZ(gameObject, goalZ, time).id;
+        //advanceLt = LeanTween.moveLocalZ(gameObject, goalZ, time).id;
+        advanceLt = LeanTween.value(transform.localPosition.z, goalZ, time).setOnUpdate(updateZ).id;
 
         anim.SetBool("advancing", true);
 
@@ -44,10 +45,26 @@ public class EnemyAdvance : MonoBehaviour
 
         reached=true;
 
+        if(strafe)
         strafe.canStrafe=false;
 
         anim.SetBool("advancing", false);
     }
+
+    void updateZ(float value)
+    {
+        transform.localPosition = new Vector3(0,0,value);
+    }
+
+    public void pauseAdvance()
+    {
+        LeanTween.cancel(advanceLt);
+
+        if(advanceRt!=null)
+        StopCoroutine(advanceRt);
+        
+        anim.SetBool("advancing", false);
+    }  
 
     public void stopAdvance()
     {
@@ -56,40 +73,9 @@ public class EnemyAdvance : MonoBehaviour
         if(advanceRt!=null)
         StopCoroutine(advanceRt);
         
+        if(strafe)
         strafe.stopStrafe();
 
         anim.SetBool("advancing", false);
     }
-
-    Collider _other;
-    
-    void OnTriggerStay(Collider other)
-    {
-        if(other.gameObject.layer==9) //touch fellow enemy
-        {
-            triggering=true;
-            _other = other;
-
-            stopAdvance();
-            LeanTween.moveLocalZ(gameObject, transform.localPosition.z+.01f, 0);
-        }
-    }
-    void OnTriggerExit(Collider other)
-    {
-        if(other.gameObject.layer==9 && !reached) //exit fellow enemy
-        {
-            triggering=false;
-
-            advance();
-        }
-    }
-    void Update()
-    {
-        if(triggering && !_other && !reached) //exit trigger if fellow enemy was deleted
-        {
-            triggering=false;
-
-            advance();
-        }
-    }     
 }

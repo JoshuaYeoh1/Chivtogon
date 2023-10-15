@@ -299,7 +299,6 @@ GameObject:
   - component: {fileID: 930500911}
   - component: {fileID: 930500910}
   - component: {fileID: 930500909}
-  - component: {fileID: 930500908}
   m_Layer: 0
   m_Name: Floor
   m_TagString: Untagged
@@ -307,28 +306,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!64 &930500908
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 930500907}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &930500909
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -402,10 +379,20 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2755367036621521104, guid: 85b55244b64275e4db0275510dcaf9f4,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4392856240185806184, guid: 85b55244b64275e4db0275510dcaf9f4,
         type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 6704460304483069148, guid: 85b55244b64275e4db0275510dcaf9f4,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7209186933321761324, guid: 85b55244b64275e4db0275510dcaf9f4,
         type: 3}
@@ -548,6 +535,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 545755042904662220, guid: 6ef0c206a9bf8064e921658864de268e,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1246998859290742316, guid: 6ef0c206a9bf8064e921658864de268e,
         type: 3}
       propertyPath: m_RootOrder
@@ -603,15 +595,15 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1499179633483585475, guid: 6ef0c206a9bf8064e921658864de268e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6129577774305185177, guid: 6ef0c206a9bf8064e921658864de268e,
         type: 3}
       propertyPath: m_Name
       value: EnemyPivot
-      objectReference: {fileID: 0}
-    - target: {fileID: 6129577774305185177, guid: 6ef0c206a9bf8064e921658864de268e,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -9,7 +9,7 @@ public class OverheadParry : MonoBehaviour
     [Header("Overhead")]
     public GameObject weaponHitbox;
     public bool canOverhead=true, windingUp;
-    public float windUpTime=.5f, swingCooldown=.5f, interruptTime=.75f;
+    public float windUpTime=.5f, swingCooldown=.5f, interruptTime=1;
     Coroutine overheadRt;
 
     [Header("Parry")]
@@ -40,6 +40,7 @@ public class OverheadParry : MonoBehaviour
         windingUp=true;
 
         anim.SetBool("swinging", true);
+        anim.SetTrigger("swing");
 
         yield return new WaitForSeconds(windUpTime);
 

@@ -5,19 +5,19 @@ using UnityEngine;
 public class EnemyStrafe : MonoBehaviour
 {
     EnemyAdvance advance;
-    GameObject pivot;
+    GameObject parent;
     public Animator anim;
 
     public bool canStrafe=true;
-    public float strafeTimeMin=.5f, strafeTimeMax=1, strafeIntervalMax=3;
+    public float strafeTimeMin=.75f, strafeTimeMax=1, strafeIntervalMin=2, strafeIntervalMax=7;
     float[] surroundAngles={0,45,90,135,180,-45,-90,-135};
 
     void Awake()
     {
         advance=GetComponent<EnemyAdvance>();
-        pivot = transform.parent.gameObject;
-        
-        pivot.transform.localEulerAngles = new Vector3(pivot.transform.localEulerAngles.x, surroundAngles[Random.Range(0,surroundAngles.Length)], transform.localEulerAngles.z);
+        parent=transform.parent.gameObject;
+
+        LeanTween.rotateY(parent, surroundAngles[Random.Range(0,surroundAngles.Length)], 0);
 
         StartCoroutine(strafing());
     }
@@ -26,7 +26,7 @@ public class EnemyStrafe : MonoBehaviour
     {
         while(true)
         {
-            yield return new WaitForSeconds(Random.Range(strafeTimeMin, strafeIntervalMax));
+            yield return new WaitForSeconds(Random.Range(strafeIntervalMin, strafeIntervalMax));
 
             if(canStrafe && !advance.reached)
             {
@@ -44,15 +44,15 @@ public class EnemyStrafe : MonoBehaviour
 
     IEnumerator strafeee()
     {
-        advance.stopAdvance();
-
         canStrafe=false;
 
         anim.SetTrigger("strafe");
 
-        float time = Random.Range(strafeTimeMin, strafeTimeMax);
+        advance.pauseAdvance();
         
-        LeanTween.rotateY(pivot, pivot.transform.localEulerAngles.y + 45*randomDir(), time).setEaseInOutSine();
+        float time = Random.Range(strafeTimeMin,strafeTimeMax);
+
+        LeanTween.rotateY(parent, parent.transform.localEulerAngles.y + 45*randomDir(), time).setEaseInOutSine();
 
         yield return new WaitForSeconds(time);
 
