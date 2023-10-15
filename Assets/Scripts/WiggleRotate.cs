@@ -25,9 +25,14 @@ public class WiggleRotate : MonoBehaviour
         }
     }
 
+    Coroutine rt1;
+
     public void shake()
     {
-        StartCoroutine(shaker());
+        if(rt1!=null)
+        StopCoroutine(rt1);
+        
+        rt1 = StartCoroutine(shaker());
     }
 
     IEnumerator shaker()
