@@ -71,10 +71,9 @@ public class OverheadParry : MonoBehaviour
 
     public void interrupt()
     {
+        StartCoroutine(interrupting());
         cancelOverhead();
         cancelParry();
-
-        StartCoroutine(interrupting());
     }
     IEnumerator interrupting()
     {

@@ -30,8 +30,14 @@ public class EnemySpawner : MonoBehaviour
 
     void difficultyCheck()
     {
-        if(Singleton.instance.playerKills%increaseEnemiesAfterNKills==0 && Singleton.instance.playerKills/increaseEnemiesAfterNKills>0)
-        maxEnemies = Singleton.instance.playerKills/increaseEnemiesAfterNKills;
+        if(Singleton.instance.playerKills<increaseEnemiesAfterNKills) maxEnemies=1;
+        else if(Singleton.instance.playerKills>=increaseEnemiesAfterNKills && Singleton.instance.playerKills<increaseEnemiesAfterNKills*2) maxEnemies=2;
+        else if(Singleton.instance.playerKills>=increaseEnemiesAfterNKills*2 && Singleton.instance.playerKills<increaseEnemiesAfterNKills*3) maxEnemies=3;
+        else if(Singleton.instance.playerKills>=increaseEnemiesAfterNKills*3 && Singleton.instance.playerKills<increaseEnemiesAfterNKills*4) maxEnemies=4;
+        else if(Singleton.instance.playerKills>=increaseEnemiesAfterNKills*4 && Singleton.instance.playerKills<increaseEnemiesAfterNKills*5) maxEnemies=5;
+        else if(Singleton.instance.playerKills>=increaseEnemiesAfterNKills*5 && Singleton.instance.playerKills<increaseEnemiesAfterNKills*6) maxEnemies=6;
+        else if(Singleton.instance.playerKills>=increaseEnemiesAfterNKills*6 && Singleton.instance.playerKills<increaseEnemiesAfterNKills*7) maxEnemies=7;
+        else if(Singleton.instance.playerKills>=increaseEnemiesAfterNKills*7 && Singleton.instance.playerKills<increaseEnemiesAfterNKills*8) maxEnemies=8;
     }
     
     void spawn()

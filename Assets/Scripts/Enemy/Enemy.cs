@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
@@ -15,7 +16,7 @@ public class Enemy : MonoBehaviour
     public Animator anim;
     public GameObject trigger, weapon;
 
-    public bool dead;
+    public bool facedByPlayer, dead;
 
     void Start()
     {
@@ -27,6 +28,21 @@ public class Enemy : MonoBehaviour
         parry=GetComponent<EnemyParry>();
         hp=GetComponent<HPManager>();
         ovPa=GetComponent<OverheadParry>();
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.layer==6 && other.tag=="FaceBox") //touch player facebox
+        {
+            facedByPlayer=true;
+        }
+    }
+    void OnTriggerExit(Collider other)
+    {
+        if(other.gameObject.layer==6  && other.tag=="FaceBox") //exit player facebox
+        {
+            facedByPlayer=false;
+        }
     }
 
     public void hit()
@@ -65,7 +81,7 @@ public class Enemy : MonoBehaviour
         LeanTween.moveLocalY(gameObject, transform.localPosition.y-1, 1).setEaseInOutSine();
 
         yield return new WaitForSeconds(1);
-
+        
         Destroy(gameObject.transform.parent.gameObject);
     }
 }

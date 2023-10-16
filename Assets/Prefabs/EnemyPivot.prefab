@@ -308,14 +308,14 @@ GameObject:
   m_Component:
   - component: {fileID: 8786564568814646114}
   - component: {fileID: 3549827946026433794}
-  - component: {fileID: 4442683785798718527}
-  - component: {fileID: 6355491113108018955}
   - component: {fileID: 9168895534548576988}
   - component: {fileID: 5941800504092860850}
   - component: {fileID: 3476588966787962555}
   - component: {fileID: 6002146950309041455}
   - component: {fileID: 8408580496332489418}
   - component: {fileID: 2426361127098935201}
+  - component: {fileID: 4442683785798718527}
+  - component: {fileID: 6355491113108018955}
   - component: {fileID: 862716913695233169}
   m_Layer: 8
   m_Name: Enemy
@@ -360,56 +360,6 @@ MonoBehaviour:
   trigger: {fileID: 8780047396179392624}
   weapon: {fileID: 3698222436188438035}
   dead: 0
---- !u!136 &4442683785798718527
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4613197228004778935}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.36950928
-  m_Height: 1.6234213
-  m_Direction: 1
-  m_Center: {x: 0, y: 0.81171066, z: 0.14316314}
---- !u!54 &6355491113108018955
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4613197228004778935}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!114 &9168895534548576988
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -499,9 +449,7 @@ MonoBehaviour:
   atkIntervalMin: 0.5
   atkIntervalMax: 2
   checkParryChance: 0.05
-  feintChance: 0.2
-  feintIntervalMin: 0.2
-  feintIntervalMax: 0.45
+  feintChance: 0.25
 --- !u!114 &2426361127098935201
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -519,6 +467,56 @@ MonoBehaviour:
   canParry: 1
   parryChance: 0.5
   feintToParryTime: 0.1
+--- !u!136 &4442683785798718527
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4613197228004778935}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.36950928
+  m_Height: 1.6234213
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.81171066, z: 0.14316314}
+--- !u!54 &6355491113108018955
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4613197228004778935}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!114 &862716913695233169
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -563,7 +561,7 @@ Transform:
   m_Children:
   - {fileID: 8786564568814646114}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7102015244618131108
 GameObject:
@@ -873,7 +871,7 @@ GameObject:
   - component: {fileID: 1248018658956078626}
   - component: {fileID: 1634975982736850272}
   m_Layer: 9
-  m_Name: EnemyTrigger
+  m_Name: LineUpBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -9,7 +9,6 @@ public class EnemyParry : MonoBehaviour
     HPManager hp;
     [HideInInspector] public OverheadParry ovPa;
 
-    public bool facedByPlayer;
     public bool canParry=true;
     public float parryChance=.5f, feintToParryTime=.1f;
 
@@ -23,12 +22,7 @@ public class EnemyParry : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.layer==6 && other.tag=="FaceBox") //touch player facebox
-        {
-            facedByPlayer=true;
-        }
-
-        if(other.gameObject.layer==7 && facedByPlayer && !enemy.dead) //touch player weapon
+        if(other.gameObject.layer==7 && enemy.facedByPlayer && !enemy.dead) //touch player weapon
         {
             if(ovPa.parrying)
             {
@@ -42,17 +36,10 @@ public class EnemyParry : MonoBehaviour
             }
         }
     }
-    void OnTriggerExit(Collider other)
-    {
-        if(other.gameObject.layer==6) //exit player facebox
-        {
-            facedByPlayer=false;
-        }
-    }
 
     void Update()
     {
-        if(facedByPlayer && player.ovPa.windingUp && canParry && !enemy.dead && Singleton.instance.playerAlive)
+        if(enemy.facedByPlayer && player.ovPa.windingUp && canParry && !enemy.dead && Singleton.instance.playerAlive)
         {
             canParry=false;
             parry();
@@ -74,13 +61,16 @@ public class EnemyParry : MonoBehaviour
         {
             yield return new WaitForSeconds(player.ovPa.windUpTime * Random.Range(.45f,.9f));
 
-            if(ovPa.windingUp)
+            if(!enemy.dead)
             {
-                StartCoroutine(feintToParry());
-            }
-            else
-            {
-                ovPa.parry();
+                if(ovPa.windingUp)
+                {
+                    StartCoroutine(feintToParry());
+                }
+                else
+                {
+                    ovPa.parry();
+                }
             }
         }
     }

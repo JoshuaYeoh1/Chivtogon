@@ -9,7 +9,7 @@ public class EnemyAttack : MonoBehaviour
     [HideInInspector] public OverheadParry ovPa;
 
     public float atkIntervalMin=.5f, atkIntervalMax=2, checkParryChance=.05f;
-    public float feintChance=.2f, feintIntervalMin=.2f, feintIntervalMax=.45f;
+    public float feintChance=.25f;
 
     void Start()
     {
@@ -52,8 +52,9 @@ public class EnemyAttack : MonoBehaviour
 
     IEnumerator feinting()
     {
-        yield return new WaitForSeconds(Random.Range(feintIntervalMin,feintIntervalMax));
+        yield return new WaitForSeconds(ovPa.windUpTime*Random.Range(.25f,.75f));
 
+        if(!enemy.dead)
         ovPa.parry();
     }
 }
