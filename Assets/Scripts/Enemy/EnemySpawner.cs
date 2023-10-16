@@ -42,7 +42,7 @@ public class EnemySpawner : MonoBehaviour
     
     void spawn()
     {
-        if(Singleton.instance.enemiesAlive<maxEnemies && Singleton.instance.playerAlive)
+        if(Singleton.instance.enemiesAlive<maxEnemies && Singleton.instance.playerAlive && Singleton.instance.controlsEnabled)
         {
             Instantiate(enemy, Singleton.instance.player.transform.position, Quaternion.identity);
 

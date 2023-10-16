@@ -13,7 +13,15 @@ public class PlayerAttack : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.S) && Singleton.instance.playerAlive && Singleton.instance.controlsEnabled)
+        if(Input.GetKeyDown(KeyCode.S))
+        {
+            attack();
+        }
+    }
+
+    public void attack()
+    {
+        if(Singleton.instance.playerAlive && Singleton.instance.controlsEnabled)
         {
             ovPa.overhead();
         }

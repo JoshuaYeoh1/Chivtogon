@@ -11,16 +11,32 @@ public class PlayerTurn : MonoBehaviour
 
     void Update()
     {
-        if(canTurn && Singleton.instance.playerAlive && Singleton.instance.controlsEnabled)
+        if(Singleton.instance.controlsEnabled)
         {
             if(Input.GetKeyDown(KeyCode.A))
             {
-                turnRt = StartCoroutine(turn(-1));
+                turnleft();
             }
             else if(Input.GetKeyDown(KeyCode.D))
             {
-                turnRt = StartCoroutine(turn(1));
+                turnright();
             }
+        }
+    }
+
+    public void turnleft()
+    {
+        if(canTurn && Singleton.instance.playerAlive)
+        {
+            turnRt = StartCoroutine(turn(-1));
+        }
+    }
+
+    public void turnright()
+    {
+        if(canTurn && Singleton.instance.playerAlive)
+        {
+            turnRt = StartCoroutine(turn(1));
         }
     }
 

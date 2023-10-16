@@ -62,7 +62,7 @@ GameObject:
   - component: {fileID: 4066709646159603765}
   m_Layer: 0
   m_Name: Hurt Volume
-  m_TagString: Untagged
+  m_TagString: hurtvolume
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -97,7 +97,7 @@ MonoBehaviour:
   m_IsGlobal: 1
   priority: 1
   blendDistance: 0
-  weight: 1
+  weight: 0
   sharedProfile: {fileID: 11400000, guid: b653f23b3a6e04943a76517c8a535f5d, type: 2}
 --- !u!1 &5813177997569389533
 GameObject:

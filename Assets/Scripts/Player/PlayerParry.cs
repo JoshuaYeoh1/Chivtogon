@@ -18,7 +18,15 @@ public class PlayerParry : MonoBehaviour
     
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.W) && Singleton.instance.playerAlive && Singleton.instance.controlsEnabled)
+        if(Input.GetKeyDown(KeyCode.W) && Singleton.instance.controlsEnabled)
+        {
+            parry();
+        }
+    }
+
+    public void parry()
+    {
+        if(Singleton.instance.playerAlive)
         {
             ovPa.parry();
         }

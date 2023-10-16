@@ -432,6 +432,7 @@ GameObject:
   - component: {fileID: 1606325432878768890}
   - component: {fileID: 2333106697585653038}
   - component: {fileID: 2728053104440875275}
+  - component: {fileID: 4710349291528221900}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -460,7 +461,7 @@ Transform:
   - {fileID: 1676185710266206173}
   - {fileID: 6939818849351135250}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1893942877253839157
 MonoBehaviour:
@@ -608,8 +609,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adb34b917f2d8a24faf84291833bec02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 100
-  hpmax: 100
+  iframe: 0
+  hp: 10
+  hpmax: 10
+  iframeTime: 0.5
+--- !u!114 &4710349291528221900
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4392856240185806184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5493087387c23d7428070ab563a1f9f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5106083080487964445
 GameObject:
   m_ObjectHideFlags: 0

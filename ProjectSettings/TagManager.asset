@@ -13,6 +13,8 @@ TagManager:
   - dmgvig
   - globalvolume
   - hurtvolume
+  - black
+  - letterbox
   layers:
   - Default
   - TransparentFX

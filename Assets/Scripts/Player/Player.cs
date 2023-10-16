@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.VFX;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
     CapsuleCollider coll;
-    PlayerTurn turn;
-    PlayerAttack attack;
-    PlayerParry parry;
+    [HideInInspector] public PlayerTurn turn;
+    [HideInInspector] public PlayerAttack attack;
+    [HideInInspector] public PlayerParry parry;
     HPManager hp;
     [HideInInspector] public OverheadParry ovPa;
     public Animator anim;
@@ -17,8 +18,9 @@ public class Player : MonoBehaviour
     WiggleRotate camshake;
     public Transform firstperson;
     public VisualEffect vfxBlood, vfxSpark;
-    InOutAnim dmgvig;
+    InOutAnim dmgvig, black;
     Volume hurtvolume;
+    Letterbox letterbox;
 
     void Awake()
     {
@@ -30,11 +32,15 @@ public class Player : MonoBehaviour
         ovPa=GetComponent<OverheadParry>();
         camshake = GameObject.FindGameObjectWithTag("camshake").GetComponent<WiggleRotate>();
         dmgvig = GameObject.FindGameObjectWithTag("dmgvig").GetComponent<InOutAnim>();
+        black = GameObject.FindGameObjectWithTag("black").GetComponent<InOutAnim>();
         hurtvolume = GameObject.FindGameObjectWithTag("hurtvolume").GetComponent<Volume>();
+        letterbox = GameObject.FindGameObjectWithTag("letterbox").GetComponent<Letterbox>();
     }
 
     void Start()
     {
+        Singleton.instance.awakePlayer();
+
         Singleton.instance.player = gameObject;
 
         Singleton.instance.playerAlive=true;
@@ -46,11 +52,27 @@ public class Player : MonoBehaviour
 
     IEnumerator intro()
     {
+        Singleton.instance.controlsEnabled=false;
+
         firstPersonMode(0);
+
+        black.animIn(0);
+
+        letterbox.animIn(0);
+
+        yield return new WaitForSeconds(.5f);
+
+        black.animOut(1);
 
         yield return new WaitForSeconds(2);
 
-        thirdPersonMode(1);
+        letterbox.animOut(.5f);
+
+        yield return new WaitForSeconds(.5f);
+
+        Singleton.instance.controlsEnabled=true;
+
+        thirdPersonMode(2);
     }
 
     public void hit()
@@ -93,6 +115,28 @@ public class Player : MonoBehaviour
         coll.enabled=false;
         trigger.SetActive(false);
         weapon.SetActive(false);
+
+        StartCoroutine(outro());
+    }
+
+    IEnumerator outro()
+    {
+        Singleton.instance.controlsEnabled=false;
+
+        yield return new WaitForSeconds(2.5f);
+
+        //letterbox.animIn(.5f);
+
+        black.animIn(1);
+
+        yield return new WaitForSeconds(1.5f);
+
+        dmgvig.animOut(0);
+
+        tweenhurtvolume(0,0);
+
+        Scene scene = SceneManager.GetActiveScene();
+        SceneManager.LoadScene(scene.name); 
     }
 
     void thirdPersonMode(float time)

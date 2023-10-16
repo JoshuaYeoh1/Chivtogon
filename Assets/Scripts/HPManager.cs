@@ -8,8 +8,8 @@ public class HPManager : MonoBehaviour
     Enemy enemy;
     //[HideInInspector] public OverheadParry ovPa;
     //public Animator anim;
-
-    public float hp, hpmax;
+    public bool iframe;
+    public float hp, hpmax, iframeTime=.5f;
 
     void Awake()
     {
@@ -25,18 +25,23 @@ public class HPManager : MonoBehaviour
 
     public void hit()
     {
-        hp--;
+        if(!iframe)
+        {
+            StartCoroutine(iframing());
+            
+            hp--;
 
-        if(hp>0)
-        {
-            if(tag=="Player")
-                player.hit();
+            if(hp>0)
+            {
+                if(tag=="Player")
+                    player.hit();
+                else
+                    enemy.hit();
+            }
             else
-                enemy.hit();
-        }
-        else
-        {
-            die();
+            {
+                die();
+            }
         }
     }
 
@@ -48,5 +53,14 @@ public class HPManager : MonoBehaviour
             player.die();
         else
             enemy.die();
+    }
+
+    IEnumerator iframing()
+    {
+        iframe=true;
+
+        yield return new WaitForSeconds(iframeTime);
+
+        iframe=false;
     }
 }

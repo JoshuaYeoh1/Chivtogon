@@ -85,7 +85,7 @@ public class Singleton : MonoBehaviour
     [Header("Enemies")]
     public int enemiesAlive;
 
-    void awakePlayer()
+    public void awakePlayer()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
