@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class Enemy : MonoBehaviour
 {
@@ -15,6 +15,7 @@ public class Enemy : MonoBehaviour
     [HideInInspector] public OverheadParry ovPa;
     public Animator anim;
     public GameObject trigger, weapon;
+    public VisualEffect vfxBlood, vfxSpark;
 
     public bool facedByPlayer, dead, inDoorway;
 
@@ -60,6 +61,8 @@ public class Enemy : MonoBehaviour
         ovPa.interrupt();
 
         anim.SetTrigger("hit");
+
+        vfxBlood.Play();
     }
 
     public void die()
@@ -69,6 +72,8 @@ public class Enemy : MonoBehaviour
         anim.SetTrigger("death enemy");
 
         anim.SetBool("mirror", Random.Range(1,3)==1);
+
+        vfxBlood.Play();
 
         dead=true;
 

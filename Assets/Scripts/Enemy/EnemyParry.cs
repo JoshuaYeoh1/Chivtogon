@@ -29,6 +29,8 @@ public class EnemyParry : MonoBehaviour
                 ovPa.cancelParry();
 
                 player.ovPa.interrupt();
+
+                enemy.vfxSpark.Play();
             }
             else
             {

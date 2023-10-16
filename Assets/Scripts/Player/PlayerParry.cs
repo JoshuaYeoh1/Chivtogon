@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class PlayerParry : MonoBehaviour
 {
+    Player player;
     HPManager hp;
     OverheadParry ovPa;
     public PlayerParryBox ppb;
 
     void Awake()
     {
+        player = GetComponent<Player>();
         hp = GetComponent<HPManager>();
         ovPa = GetComponent<OverheadParry>();
     }
@@ -31,6 +33,8 @@ public class PlayerParry : MonoBehaviour
                 ovPa.cancelParry();
 
                 other.GetComponent<EnemyWeapon>().ovPa.interrupt();
+
+                player.vfxSpark.Play();
             }
             else
             {

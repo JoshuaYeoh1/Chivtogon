@@ -131,8 +131,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5c8dc01bf7d1114ca647eb4f78e90db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  frequency: 13.8
-  magnitude: 6.48
+  frequency: 3
+  magnitude: 4
+  offset: 4
   duration: 0
   defintensity: 0
   intensity: 0

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class Player : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class Player : MonoBehaviour
     public GameObject trigger, weapon;
     WiggleRotate camshake;
     public Transform firstperson;
+    public VisualEffect vfxBlood, vfxSpark;
 
     void Awake()
     {
@@ -24,16 +26,16 @@ public class Player : MonoBehaviour
         hp=GetComponent<HPManager>();
         ovPa=GetComponent<OverheadParry>();
         camshake = GameObject.FindGameObjectWithTag("camshake").GetComponent<WiggleRotate>();
+    }
 
+    void Start()
+    {
         Singleton.instance.player = gameObject;
 
         Singleton.instance.playerAlive=true;
 
         Singleton.instance.playerKills=0;
-    }
 
-    void Start()
-    {
         StartCoroutine(intro());        
     }
 
@@ -53,6 +55,8 @@ public class Player : MonoBehaviour
         anim.SetTrigger("hit");
 
         camshake.shake();
+
+        vfxBlood.Play();
     }
 
     public void die()
@@ -64,6 +68,8 @@ public class Player : MonoBehaviour
         anim.SetBool("mirror", Random.Range(1,3)==1);
 
         camshake.shake();
+
+        vfxBlood.Play();
 
         firstPersonMode(1);
 

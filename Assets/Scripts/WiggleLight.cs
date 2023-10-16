@@ -5,7 +5,7 @@ using UnityEngine;
 public class WiggleLight : MonoBehaviour
 {
     Light mylight;
-    public float frequency, magnitude, duration;
+    public float frequency=3, magnitude=4, offset=4, duration;
     public float defintensity, intensity;
     public bool wiggle=true;
     float seed;
@@ -23,7 +23,7 @@ public class WiggleLight : MonoBehaviour
     {
         if(wiggle)
         {
-            intensity = (Mathf.PerlinNoise(seed,Time.time*frequency)*2-1)*magnitude;
+            intensity = (Mathf.PerlinNoise(seed,Time.time*frequency)*2-1)*magnitude+offset;
 
             mylight.intensity = intensity;
         }
