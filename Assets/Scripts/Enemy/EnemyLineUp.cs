@@ -76,8 +76,11 @@ public class EnemyLineUp : MonoBehaviour
 
             yield return new WaitForSeconds(time);
 
-            strafe.canStrafe=true;
-            strafe.strafe();
+            if(!advance.reached)
+            {
+                strafe.canStrafe=true;
+                strafe.strafe();
+            }
         }
     }
 }

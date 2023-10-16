@@ -16,7 +16,7 @@ public class Enemy : MonoBehaviour
     public Animator anim;
     public GameObject trigger, weapon;
 
-    public bool facedByPlayer, dead;
+    public bool facedByPlayer, dead, inDoorway;
 
     void Start()
     {
@@ -36,12 +36,22 @@ public class Enemy : MonoBehaviour
         {
             facedByPlayer=true;
         }
+
+        if(other.gameObject.layer==11) //touch door trigger
+        {
+            inDoorway=true;
+        }
     }
     void OnTriggerExit(Collider other)
     {
         if(other.gameObject.layer==6  && other.tag=="FaceBox") //exit player facebox
         {
             facedByPlayer=false;
+        }
+
+        if(other.gameObject.layer==11) //exit door trigger
+        {
+            inDoorway=false;
         }
     }
 
@@ -50,8 +60,6 @@ public class Enemy : MonoBehaviour
         ovPa.interrupt();
 
         anim.SetTrigger("hit");
-
-        anim.SetBool("mirror", Random.Range(1,3)==1);
     }
 
     public void die()

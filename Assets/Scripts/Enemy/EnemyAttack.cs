@@ -43,7 +43,7 @@ public class EnemyAttack : MonoBehaviour
         {
             ovPa.overhead();
 
-            if(Random.Range(0f,1f) <= feintChance)
+            if(Random.Range(0f,1f) <= feintChance && enemy.facedByPlayer)
             {
                 StartCoroutine(feinting());
             }

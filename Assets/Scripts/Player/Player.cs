@@ -34,8 +34,6 @@ public class Player : MonoBehaviour
         ovPa.interrupt();
 
         anim.SetTrigger("hit");
-
-        anim.SetBool("mirror", Random.Range(1,3)==1);
     }
 
     public void die()

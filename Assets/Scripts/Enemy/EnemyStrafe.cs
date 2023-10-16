@@ -30,7 +30,7 @@ public class EnemyStrafe : MonoBehaviour
         {
             yield return new WaitForSeconds(Random.Range(strafeIntervalMin, strafeIntervalMax));
 
-            if(canStrafe && !advance.reached && !enemy.dead && Singleton.instance.playerAlive)
+            if(canStrafe && !advance.reached && !enemy.inDoorway && !enemy.dead && Singleton.instance.playerAlive)
             {
                 strafe();
             }

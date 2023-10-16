@@ -9,6 +9,7 @@ TagManager:
   - camshake
   - FaceBox
   - ParryBox
+  - Prop
   layers:
   - Default
   - TransparentFX
@@ -21,8 +22,8 @@ TagManager:
   - Enemy
   - EnemyTrigger
   - EnemyBullet
-  - 
-  - 
+  - DoorTrigger
+  - Prop
   - 
   - 
   - 
