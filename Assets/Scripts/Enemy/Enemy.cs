@@ -84,7 +84,7 @@ public class Enemy : MonoBehaviour
 
         StartCoroutine(sinkAnim());
 
-        playerhp.hp = playerhp.hpmax;
+        playerhp.hp = Mathf.RoundToInt(playerhp.hp+(playerhp.hpmax-playerhp.hp)*.8f);
 
         Singleton.instance.playerKills++;
         Singleton.instance.enemiesAlive--;

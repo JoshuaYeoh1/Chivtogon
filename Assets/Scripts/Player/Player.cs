@@ -96,7 +96,7 @@ public class Player : MonoBehaviour
 
         anim.SetTrigger("death player");
 
-        if(Random.Range(1,3)==1) anim.SetTrigger("death enemy"); else anim.SetTrigger("death player");
+        anim.SetTrigger("death player");
 
         camshake.shake();
 
