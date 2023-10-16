@@ -4,14 +4,23 @@ using UnityEngine;
 
 public class HPManager : MonoBehaviour
 {
-    [HideInInspector] public OverheadParry ovPa;
-    public Animator anim;
+    Player player;
+    Enemy enemy;
+    //[HideInInspector] public OverheadParry ovPa;
+    //public Animator anim;
 
     public float hp, hpmax;
 
     void Awake()
     {
-        ovPa=GetComponent<OverheadParry>();
+        if(tag=="Player")
+            player=GetComponent<Player>();
+        else
+            enemy=GetComponent<Enemy>();
+
+        //ovPa=GetComponent<OverheadParry>();
+
+        hp=hpmax;
     }    
 
     public void hit()
@@ -20,9 +29,10 @@ public class HPManager : MonoBehaviour
 
         if(hp>0)
         {
-            ovPa.interrupt();
-
-            anim.SetTrigger("hit");
+            if(tag=="Player")
+                player.hit();
+            else
+                enemy.hit();
         }
         else
         {
@@ -34,24 +44,9 @@ public class HPManager : MonoBehaviour
     {
         gameObject.layer=0;
 
-        if(tag=="Enemy")
-        {
-            anim.SetTrigger("death enemy");
-
-            StartCoroutine(sinkAnim());
-        }
+        if(tag=="Player")
+            player.die();
         else
-            anim.SetTrigger("death player");
-    }
-
-    IEnumerator sinkAnim()
-    {
-        yield return new WaitForSeconds(3f);
-
-        LeanTween.moveLocalY(gameObject, transform.localPosition.y-1, 1).setEaseInOutSine();
-
-        yield return new WaitForSeconds(1);
-
-        Destroy(gameObject);
+            enemy.die();
     }
 }

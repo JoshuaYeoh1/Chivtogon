@@ -6,7 +6,7 @@ public class PlayerParry : MonoBehaviour
 {
     HPManager hp;
     OverheadParry ovPa;
-    public PlayerTrigger pt;
+    public PlayerParryBox ppb;
 
     void Awake()
     {
@@ -16,7 +16,7 @@ public class PlayerParry : MonoBehaviour
     
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.W))
+        if(Input.GetKeyDown(KeyCode.W) && Singleton.instance.playerAlive && Singleton.instance.controlsEnabled)
         {
             ovPa.parry();
         }
@@ -26,7 +26,7 @@ public class PlayerParry : MonoBehaviour
     {
         if(other.gameObject.layer==10) //touch enemy weapon
         {
-            if(ovPa.parrying && pt.target==other.GetComponent<EnemyWeapon>().parent)
+            if(ovPa.parrying && ppb.parryableTargets.Contains(other.GetComponent<EnemyWeapon>().parent))
             {
                 ovPa.cancelParry();
 

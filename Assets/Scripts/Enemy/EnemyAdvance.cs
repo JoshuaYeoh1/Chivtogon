@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class EnemyAdvance : MonoBehaviour
 {
-    Player player;
+    Enemy enemy;
+    //Player player;
     EnemyStrafe strafe;
     public Animator anim;
 
@@ -12,9 +13,10 @@ public class EnemyAdvance : MonoBehaviour
     public bool reached;
     public float goalZMin=1.2f, goalZMax=1.8f, travelTimeMin=4, travelTimeMax=5;
     
-    void Awake()
+    void Start()
     {
-        player=GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        enemy=GetComponent<Enemy>();
+        //player=GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         strafe=GetComponent<EnemyStrafe>();
 
         startPos = transform.localPosition;
@@ -23,7 +25,10 @@ public class EnemyAdvance : MonoBehaviour
 
     public void advance()
     {
-        advanceRt = StartCoroutine(advancing());
+        if(!enemy.dead && Singleton.instance.playerAlive)
+        {
+            advanceRt = StartCoroutine(advancing());
+        }
     }
 
     int advanceLt=0;
@@ -36,24 +41,34 @@ public class EnemyAdvance : MonoBehaviour
 
         float time = travelTime*(transform.localPosition.z-goalZ)/(startPos.z-goalZ);
 
-        //advanceLt = LeanTween.moveLocalZ(gameObject, goalZ, time).id;
-        advanceLt = LeanTween.value(transform.localPosition.z, goalZ, time).setOnUpdate(updateZ).id;
+        tweenMove(goalZ, time);
 
         anim.SetBool("advancing", true);
 
+        anim.SetBool("mirror", Random.Range(1,3)==1);
+
         yield return new WaitForSeconds(time);
 
+        reachedPlayer();
+    }
+
+    void tweenMove(float destination, float time)
+    {
+        advanceLt = LeanTween.value(transform.localPosition.z, destination, time).setOnUpdate(updateZ).id;
+    }
+    void updateZ(float value)
+    {
+        transform.localPosition = new Vector3(0,0,value);
+    }
+
+    void reachedPlayer()
+    {
         reached=true;
 
         if(strafe)
         strafe.canStrafe=false;
 
         anim.SetBool("advancing", false);
-    }
-
-    void updateZ(float value)
-    {
-        transform.localPosition = new Vector3(0,0,value);
     }
 
     public void pauseAdvance()
@@ -65,17 +80,4 @@ public class EnemyAdvance : MonoBehaviour
         
         anim.SetBool("advancing", false);
     }  
-
-    public void stopAdvance()
-    {
-        LeanTween.cancel(advanceLt);
-
-        if(advanceRt!=null)
-        StopCoroutine(advanceRt);
-        
-        if(strafe)
-        strafe.stopStrafe();
-
-        anim.SetBool("advancing", false);
-    }
 }

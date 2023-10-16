@@ -20,13 +20,19 @@ public class Singleton : MonoBehaviour
             Destroy(gameObject);
         }
 
+        //awakeAudio();
+        awakePlayer();
+    }
+
+    void awakeAudio()
+    {
         LoadVolume();
 
-        //musicSource.clip = music[(Random.Range(0,music.Length))];
-        //musicSource.Play();
+        musicSource.clip = music[(Random.Range(0,music.Length))];
+        musicSource.Play();
         
-        //ambSource.clip = ambient[(Random.Range(0,ambient.Length))];
-        //ambSource.Play();
+        ambSource.clip = ambient[(Random.Range(0,ambient.Length))];
+        ambSource.Play();
     }
 
     [Header("Audio Manager")]
@@ -75,26 +81,17 @@ public class Singleton : MonoBehaviour
 
 
     [Header("Player")]
-    public bool isPlayerAlive=true;
-    public bool controlsEnabled=true;
     public GameObject player;
-    Camera cam;
-    public Vector3 playerPos;
+    [HideInInspector] public Camera cam;
+    public bool playerAlive=true, controlsEnabled=true;
+    public int playerKills;
+    
+    [Header("Enemies")]
+    public int enemiesAlive;
 
-    void Start()
+    void awakePlayer()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
-    }
-
-    void Update()
-    {
-        if(isPlayerAlive)
-        {
-            if(!player)
-                player = GameObject.FindGameObjectWithTag("Player");
-
-            playerPos = player.transform.position;
-        }
     }
 }

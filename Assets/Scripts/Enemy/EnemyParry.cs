@@ -4,16 +4,18 @@ using UnityEngine;
 
 public class EnemyParry : MonoBehaviour
 {
+    Enemy enemy;
     Player player;
     HPManager hp;
     [HideInInspector] public OverheadParry ovPa;
 
     public bool facedByPlayer;
     public bool canParry=true;
-    public float parryChance=.5f, parryIntervalMin=.3f, parryIntervalMax=.5f, feintToParryTime=.1f;
+    public float parryChance=.5f, feintToParryTime=.1f;
 
-    void Awake()
+    void Start()
     {
+        enemy=GetComponent<Enemy>();
         player=GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         hp=GetComponent<HPManager>();
         ovPa=GetComponent<OverheadParry>();
@@ -21,12 +23,12 @@ public class EnemyParry : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.layer==6) //touch player trigger
+        if(other.gameObject.layer==6 && other.tag=="FaceBox") //touch player facebox
         {
             facedByPlayer=true;
         }
 
-        if(other.gameObject.layer==7 && facedByPlayer) //touch player weapon
+        if(other.gameObject.layer==7 && facedByPlayer && !enemy.dead) //touch player weapon
         {
             if(ovPa.parrying)
             {
@@ -42,7 +44,7 @@ public class EnemyParry : MonoBehaviour
     }
     void OnTriggerExit(Collider other)
     {
-        if(other.gameObject.layer==6) //exit player trigger
+        if(other.gameObject.layer==6) //exit player facebox
         {
             facedByPlayer=false;
         }
@@ -50,7 +52,7 @@ public class EnemyParry : MonoBehaviour
 
     void Update()
     {
-        if(facedByPlayer && player.ovPa.windingUp && canParry)
+        if(facedByPlayer && player.ovPa.windingUp && canParry && !enemy.dead && Singleton.instance.playerAlive)
         {
             canParry=false;
             parry();
@@ -59,15 +61,18 @@ public class EnemyParry : MonoBehaviour
 
     void parry()
     {
-        StartCoroutine(parrying());
-        StartCoroutine(parryCooldown());
+        if(!enemy.dead)
+        {
+            StartCoroutine(parrying());
+            StartCoroutine(parryCooldown());
+        }
     }
 
     IEnumerator parrying()
     {
-        if(Random.Range(0f,1f) <= parryChance)
+        if(Random.Range(0f,1f) <= parryChance && !enemy.dead)
         {
-            yield return new WaitForSeconds(Random.Range(parryIntervalMin,parryIntervalMax));
+            yield return new WaitForSeconds(player.ovPa.windUpTime * Random.Range(.45f,.9f));
 
             if(ovPa.windingUp)
             {

@@ -11,7 +11,7 @@ public class PlayerTurn : MonoBehaviour
 
     void Update()
     {
-        if(canTurn)
+        if(canTurn && Singleton.instance.playerAlive && Singleton.instance.controlsEnabled)
         {
             if(Input.GetKeyDown(KeyCode.A))
             {

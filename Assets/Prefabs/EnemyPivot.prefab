@@ -15,12 +15,12 @@ GameObject:
   - component: {fileID: 2002266689393979211}
   - component: {fileID: 1746717226605631859}
   m_Layer: 10
-  m_Name: model
+  m_Name: Hitbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &6888026963065676716
 Transform:
   m_ObjectHideFlags: 0
@@ -51,7 +51,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1499179633483585475}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -162,7 +162,7 @@ GameObject:
   - component: {fileID: 3624915366694306722}
   - component: {fileID: 6627225355739424702}
   m_Layer: 0
-  m_Name: model
+  m_Name: capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -276,7 +276,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3534553215514687262}
   m_Layer: 10
-  m_Name: weapon
+  m_Name: Weapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -336,9 +336,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1248018658956078626}
   - {fileID: 6471142586840290177}
   - {fileID: 3534553215514687262}
+  - {fileID: 1248018658956078626}
   - {fileID: 3938223508735578090}
   m_Father: {fileID: 1246998859290742316}
   m_RootOrder: -1
@@ -356,6 +356,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ovPa: {fileID: 0}
+  anim: {fileID: 3847883526750425794}
+  trigger: {fileID: 8780047396179392624}
+  weapon: {fileID: 3698222436188438035}
+  dead: 0
 --- !u!136 &4442683785798718527
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -440,7 +444,7 @@ MonoBehaviour:
   canStrafe: 1
   strafeTimeMin: 0.75
   strafeTimeMax: 1
-  strafeIntervalMin: 2
+  strafeIntervalMin: 1
   strafeIntervalMax: 7
 --- !u!114 &3476588966787962555
 MonoBehaviour:
@@ -470,6 +474,7 @@ MonoBehaviour:
   weaponHitbox: {fileID: 3698222436188438035}
   canOverhead: 1
   windingUp: 0
+  interrupted: 0
   windUpTime: 0.5
   swingCooldown: 0.5
   interruptTime: 1
@@ -477,7 +482,7 @@ MonoBehaviour:
   parrying: 0
   parryTime: 0
   protectTime: 0.4
-  unparryTime: 0.4
+  unparryTimeSlow: 0.4
 --- !u!114 &8408580496332489418
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -513,8 +518,6 @@ MonoBehaviour:
   facedByPlayer: 0
   canParry: 1
   parryChance: 0.5
-  parryIntervalMin: 0.3
-  parryIntervalMax: 0.5
   feintToParryTime: 0.1
 --- !u!114 &862716913695233169
 MonoBehaviour:
@@ -528,9 +531,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adb34b917f2d8a24faf84291833bec02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ovPa: {fileID: 0}
-  anim: {fileID: 3847883526750425794}
-  hp: 2
+  hp: 0
   hpmax: 2
 --- !u!1 &6129577774305185177
 GameObject:
@@ -733,7 +734,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6471142586840290177}
   m_Layer: 0
-  m_Name: pivot
+  m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -751,8 +752,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 6386374218211622285}
   - {fileID: 7171491451970554040}
+  - {fileID: 6386374218211622285}
   m_Father: {fileID: 8786564568814646114}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

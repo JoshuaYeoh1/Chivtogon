@@ -8,33 +8,29 @@ public class OverheadParry : MonoBehaviour
 
     [Header("Overhead")]
     public GameObject weaponHitbox;
-    public bool canOverhead=true, windingUp;
+    public bool canOverhead=true, windingUp, interrupted;
     public float windUpTime=.5f, swingCooldown=.5f, interruptTime=1;
     Coroutine overheadRt;
 
     [Header("Parry")]
-    //public GameObject shield;
     public bool canParry=true;
     public bool parrying;
-    public float parryTime=0, protectTime=.4f, unparryTime=.4f;
+    public float parryTime=0, protectTime=.4f, unparryTimeSlow=.4f;
     Coroutine parryRt;
 
     void Awake()
     {
         weaponHitbox.SetActive(false);
-        //shield.SetActive(false);
     }
 
     public void overhead()
     {
-        if(canOverhead)
+        if(canOverhead && !interrupted)
         overheadRt = StartCoroutine(overheading());
     }
 
     public IEnumerator overheading()
     {
-        //LeanTween.rotateX(weaponHitbox, 0, 0);
-
         canOverhead=canParry=false;
 
         windingUp=true;
@@ -52,11 +48,7 @@ public class OverheadParry : MonoBehaviour
 
         weaponHitbox.SetActive(false);
 
-        //LeanTween.rotateX(weaponHitbox, weaponHitbox.transform.localEulerAngles.x+90, 0).setEaseInOutSine();
-
         yield return new WaitForSeconds(swingCooldown*.75f);
-
-        //LeanTween.rotateX(weaponHitbox, 0, 0);
 
         anim.SetBool("swinging", false);
 
@@ -67,8 +59,6 @@ public class OverheadParry : MonoBehaviour
     {
         if(overheadRt!=null)
         StopCoroutine(overheadRt);
-
-        //LeanTween.rotateX(weaponHitbox, 0, 0);
 
         weaponHitbox.SetActive(false);
 
@@ -84,15 +74,15 @@ public class OverheadParry : MonoBehaviour
         cancelOverhead();
         cancelParry();
 
-        StartCoroutine(interrupted());
+        StartCoroutine(interrupting());
     }
-    IEnumerator interrupted()
+    IEnumerator interrupting()
     {
-        canOverhead=false;
+        interrupted=true;
 
         yield return new WaitForSeconds(interruptTime);
 
-        canOverhead=true;
+        interrupted=false;
     }
 
     public void parry()
@@ -111,61 +101,82 @@ public class OverheadParry : MonoBehaviour
     {
         canOverhead=canParry=false;
 
-        //shield.SetActive(true);
-        //LeanTween.rotateX(shield, 0, 0);
-        //LeanTween.rotateX(shield, weaponHitbox.transform.localEulerAngles.x-90, parryTime).setEaseOutExpo();
-
         yield return new WaitForSeconds(parryTime);
 
         parrying=true;
 
+        anim.SetTrigger("parry");
+
         anim.SetBool("parrying", true);
+
+        anim.SetBool("mirror", Random.Range(1,3)==1);
 
         yield return new WaitForSeconds(protectTime);
 
         parrying=false;
 
+        anim.SetBool("slowunparry", true);
+
         anim.SetBool("parrying", false);
 
-        //LeanTween.rotateX(shield, 0, unparryTime).setEaseOutExpo();
+        yield return new WaitForSeconds(unparryTimeSlow);
 
-        yield return new WaitForSeconds(unparryTime);
-
-        //shield.SetActive(false);
-
-        canOverhead=canParry=true;
+        cancelParry();
     }
 
     public void cancelParry()
     {
         if(parryRt!=null)
-        StopCoroutine(parryRt);
-
-        // LeanTween.rotateX(shield, 0, 0);
-        //shield.SetActive(false);
+        StopCoroutine(parryRt);        
 
         canOverhead=canParry=true;
 
         parrying=false;
 
+        anim.SetBool("slowunparry", false);
+
         anim.SetBool("parrying", false);
     }
-
-    // public bool animLayer;
-    // Coroutine animLayerRt;
-
-    // void disableAnimLayer()
-    // {
-    //     if(animLayerRt!=null)
-    //     StopCoroutine(animLayerRt);
-
-    //     animLayerRt = StartCoroutine(disablingAnimLayer());
-    // }
-
-    // IEnumerator disablingAnimLayer()
-    // {
-    //     yield return new WaitForSeconds(.4f);
-
-    //     animLayer=false;
-    // }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+//junk stuff
+
+//public GameObject shield;
+//shield.SetActive(false);
+//LeanTween.rotateX(weaponHitbox, 0, 0);
+//LeanTween.rotateX(weaponHitbox, weaponHitbox.transform.localEulerAngles.x+90, 0).setEaseInOutSine();
+//shield.SetActive(true);
+//LeanTween.rotateX(shield, 0, 0);
+//LeanTween.rotateX(shield, weaponHitbox.transform.localEulerAngles.x-90, parryTime).setEaseOutExpo();
+//LeanTween.rotateX(shield, 0, unparryTime).setEaseOutExpo();
+//shield.SetActive(false);
+
+// public bool animLayer;
+// Coroutine animLayerRt;
+
+// void disableAnimLayer()
+// {
+//     if(animLayerRt!=null)
+//     StopCoroutine(animLayerRt);
+
+//     animLayerRt = StartCoroutine(disablingAnimLayer());
+// }
+
+// IEnumerator disablingAnimLayer()
+// {
+//     yield return new WaitForSeconds(.4f);
+
+//     animLayer=false;
+// }

@@ -4,16 +4,18 @@ using UnityEngine;
 
 public class EnemyStrafe : MonoBehaviour
 {
+    Enemy enemy;
     EnemyAdvance advance;
     GameObject parent;
     public Animator anim;
 
     public bool canStrafe=true;
-    public float strafeTimeMin=.75f, strafeTimeMax=1, strafeIntervalMin=2, strafeIntervalMax=7;
+    public float strafeTimeMin=.75f, strafeTimeMax=1, strafeIntervalMin=1, strafeIntervalMax=7;
     float[] surroundAngles={0,45,90,135,180,-45,-90,-135};
 
-    void Awake()
+    void Start()
     {
+        enemy=GetComponent<Enemy>();
         advance=GetComponent<EnemyAdvance>();
         parent=transform.parent.gameObject;
 
@@ -28,7 +30,7 @@ public class EnemyStrafe : MonoBehaviour
         {
             yield return new WaitForSeconds(Random.Range(strafeIntervalMin, strafeIntervalMax));
 
-            if(canStrafe && !advance.reached)
+            if(canStrafe && !advance.reached && !enemy.dead && Singleton.instance.playerAlive)
             {
                 strafe();
             }
@@ -47,6 +49,8 @@ public class EnemyStrafe : MonoBehaviour
         canStrafe=false;
 
         anim.SetTrigger("strafe");
+
+        anim.SetBool("mirror", Random.Range(1,3)==1);
 
         advance.pauseAdvance();
         

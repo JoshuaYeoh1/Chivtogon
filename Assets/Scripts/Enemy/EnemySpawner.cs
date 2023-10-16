@@ -5,26 +5,42 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     public GameObject enemy;
-    public float spawnTimeMin=1, spawnTimeMax=4;
-    Coroutine rt1;
+    float spawnTimeMin=2, spawnTimeMax=4;
+    public int maxEnemies=1, increaseEnemiesAfterNKills=10;
 
-    void Awake()
+    void Start()
     {
-        rt1 = StartCoroutine(spawning());
+        Singleton.instance.enemiesAlive=0;
+
+        spawningRt = StartCoroutine(spawning());
     }
+
+    Coroutine spawningRt;
 
     IEnumerator spawning()
     {
         while(true)
         {
             yield return new WaitForSeconds(Random.Range(spawnTimeMin,spawnTimeMax));
-
-            Instantiate(enemy, Singleton.instance.playerPos, Quaternion.identity);
+            
+            difficultyCheck();
+            spawn();
         }
     }
 
-    public void stopSpawning()
+    void difficultyCheck()
     {
-        StopCoroutine(rt1);
+        if(Singleton.instance.playerKills%increaseEnemiesAfterNKills==0 && Singleton.instance.playerKills/increaseEnemiesAfterNKills>0)
+        maxEnemies = Singleton.instance.playerKills/increaseEnemiesAfterNKills;
+    }
+    
+    void spawn()
+    {
+        if(Singleton.instance.enemiesAlive<maxEnemies && Singleton.instance.playerAlive)
+        {
+            Instantiate(enemy, Singleton.instance.player.transform.position, Quaternion.identity);
+
+            Singleton.instance.enemiesAlive++;
+        }
     }
 }

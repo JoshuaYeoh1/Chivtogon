@@ -4,14 +4,16 @@ using UnityEngine;
 
 public class EnemyAttack : MonoBehaviour
 {
+    Enemy enemy;
     EnemyAdvance advance;
     [HideInInspector] public OverheadParry ovPa;
 
     public float atkIntervalMin=.5f, atkIntervalMax=2, checkParryChance=.05f;
     public float feintChance=.2f, feintIntervalMin=.2f, feintIntervalMax=.45f;
 
-    void Awake()
+    void Start()
     {
+        enemy=GetComponent<Enemy>();
         advance=GetComponent<EnemyAdvance>();
         ovPa=GetComponent<OverheadParry>();
 
@@ -24,7 +26,7 @@ public class EnemyAttack : MonoBehaviour
         {
             yield return new WaitForSeconds(Random.Range(atkIntervalMin,atkIntervalMax));
 
-            if(advance.reached)
+            if(advance.reached && !enemy.dead && Singleton.instance.playerAlive)
             {
                 randomMove();
             }
