@@ -70,7 +70,7 @@ public class Enemy : MonoBehaviour
     {
         ovPa.interrupt();
 
-        anim.SetTrigger("death enemy");
+        if(Random.Range(1,3)==1) anim.SetTrigger("death enemy"); else anim.SetTrigger("death player");
 
         anim.SetBool("mirror", Random.Range(1,3)==1);
 

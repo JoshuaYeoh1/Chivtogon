@@ -16,7 +16,7 @@ public class Player : MonoBehaviour
     public Animator anim;
     public GameObject trigger, weapon;
     WiggleRotate camshake;
-    public Transform firstperson;
+    public Transform firstperson, secondperson;
     public VisualEffect vfxBlood, vfxSpark;
     InOutAnim dmgvig, black;
     Volume hurtvolume;
@@ -54,7 +54,7 @@ public class Player : MonoBehaviour
     {
         Singleton.instance.controlsEnabled=false;
 
-        firstPersonMode(0);
+        if(Random.Range(1,3)==1) firstPersonMode(0); else secondPersonMode(0);
 
         black.animIn(0);
 
@@ -96,7 +96,7 @@ public class Player : MonoBehaviour
 
         anim.SetTrigger("death player");
 
-        anim.SetBool("mirror", Random.Range(1,3)==1);
+        if(Random.Range(1,3)==1) anim.SetTrigger("death enemy"); else anim.SetTrigger("death player");
 
         camshake.shake();
 
@@ -150,6 +150,14 @@ public class Player : MonoBehaviour
     void firstPersonMode(float time)
     {
         Singleton.instance.cam.transform.parent = firstperson;
+
+        LeanTween.moveLocal(Singleton.instance.cam.gameObject, Vector3.zero, time).setEaseInOutSine();
+        LeanTween.rotateLocal(Singleton.instance.cam.gameObject, Vector3.zero, time).setEaseInOutSine();
+    }
+
+    void secondPersonMode(float time)
+    {
+        Singleton.instance.cam.transform.parent = secondperson;
 
         LeanTween.moveLocal(Singleton.instance.cam.gameObject, Vector3.zero, time).setEaseInOutSine();
         LeanTween.rotateLocal(Singleton.instance.cam.gameObject, Vector3.zero, time).setEaseInOutSine();
