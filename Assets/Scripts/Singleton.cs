@@ -20,7 +20,7 @@ public class Singleton : MonoBehaviour
             Destroy(gameObject);
         }
 
-        //awakeAudio();
+        awakeAudio();
         awakePlayer();
     }
 
@@ -64,16 +64,12 @@ public class Singleton : MonoBehaviour
     void LoadVolume()
     {   
         float masterVolume = PlayerPrefs.GetFloat(MASTER_KEY, 1f);
-
         float musicVolume = PlayerPrefs.GetFloat(MUSIC_KEY, 1f);
-
         float sfxVolume = PlayerPrefs.GetFloat(SFX_KEY, 1f);
 
-        //mixer.SetFloat(VolumeSettings.MIXER_MASTER, Mathf.Log10(masterVolume)*20);
-
-        //mixer.SetFloat(VolumeSettings.MIXER_MUSIC, Mathf.Log10(musicVolume)*20);
-
-        //mixer.SetFloat(VolumeSettings.MIXER_SFX, Mathf.Log10(sfxVolume)*20);
+        mixer.SetFloat(VolumeSettings.MIXER_MASTER, Mathf.Log10(masterVolume)*20);
+        mixer.SetFloat(VolumeSettings.MIXER_MUSIC, Mathf.Log10(musicVolume)*20);
+        mixer.SetFloat(VolumeSettings.MIXER_SFX, Mathf.Log10(sfxVolume)*20);
     }
 
 

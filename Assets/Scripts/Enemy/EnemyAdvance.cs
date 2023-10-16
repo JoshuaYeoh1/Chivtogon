@@ -69,6 +69,8 @@ public class EnemyAdvance : MonoBehaviour
         strafe.canStrafe=false;
 
         anim.SetBool("advancing", false);
+
+        anim.SetBool("mirror", Random.Range(1,3)==1);
     }
 
     public void pauseAdvance()
@@ -79,5 +81,7 @@ public class EnemyAdvance : MonoBehaviour
         StopCoroutine(advanceRt);
         
         anim.SetBool("advancing", false);
+
+        anim.SetBool("mirror", Random.Range(1,3)==1);
     }  
 }

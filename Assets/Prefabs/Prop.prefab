@@ -726,14 +726,11 @@ MonoBehaviour:
   randomRotateZ: 0
   minRotate: -180
   maxRotate: 180
-  randomScaleX: 0
+  randomScaleX: 1
   randomScaleY: 1
   randomScaleZ: 1
   minScale: 1
   maxScale: 1.5
-  randomMirrorX: 1
-  randomMirrorY: 0
-  randomMirrorZ: 1
 --- !u!54 &8881214246189826841
 Rigidbody:
   m_ObjectHideFlags: 0

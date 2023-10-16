@@ -60,6 +60,8 @@ public class EnemyStrafe : MonoBehaviour
 
         yield return new WaitForSeconds(time);
 
+        anim.SetBool("mirror", Random.Range(1,3)==1); // for idle anim
+
         if(!advance.reached)
         {
             canStrafe=true;

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.VFX;
 
 public class Player : MonoBehaviour
@@ -16,6 +17,8 @@ public class Player : MonoBehaviour
     WiggleRotate camshake;
     public Transform firstperson;
     public VisualEffect vfxBlood, vfxSpark;
+    InOutAnim dmgvig;
+    Volume hurtvolume;
 
     void Awake()
     {
@@ -26,6 +29,8 @@ public class Player : MonoBehaviour
         hp=GetComponent<HPManager>();
         ovPa=GetComponent<OverheadParry>();
         camshake = GameObject.FindGameObjectWithTag("camshake").GetComponent<WiggleRotate>();
+        dmgvig = GameObject.FindGameObjectWithTag("dmgvig").GetComponent<InOutAnim>();
+        hurtvolume = GameObject.FindGameObjectWithTag("hurtvolume").GetComponent<Volume>();
     }
 
     void Start()
@@ -57,6 +62,10 @@ public class Player : MonoBehaviour
         camshake.shake();
 
         vfxBlood.Play();
+
+        cancelRtLt();
+
+        dmgvigrt = StartCoroutine(dmgviging());
     }
 
     public void die()
@@ -71,7 +80,13 @@ public class Player : MonoBehaviour
 
         vfxBlood.Play();
 
-        firstPersonMode(1);
+        cancelRtLt();
+
+        dmgvig.animIn(.1f);
+
+        tweenhurtvolume(.3f,.1f);
+
+        firstPersonMode(.5f);
 
         Singleton.instance.playerAlive=false;
 
@@ -95,4 +110,38 @@ public class Player : MonoBehaviour
         LeanTween.moveLocal(Singleton.instance.cam.gameObject, Vector3.zero, time).setEaseInOutSine();
         LeanTween.rotateLocal(Singleton.instance.cam.gameObject, Vector3.zero, time).setEaseInOutSine();
     }
+
+    void cancelRtLt()
+    {
+        if(dmgvigrt!=null) StopCoroutine(dmgvigrt);
+
+        LeanTween.cancel(hurtvolumelt);
+    }
+
+    Coroutine dmgvigrt;
+
+    IEnumerator dmgviging()
+    {
+        dmgvig.animIn(.1f);
+
+        tweenhurtvolume(.3f,.1f);
+
+        yield return new WaitForSeconds(.1f);
+
+        dmgvig.animOut(Random.Range(.5f,1));
+
+        tweenhurtvolume(0,Random.Range(.5f,1));
+    }
+
+    int hurtvolumelt=0;
+
+    void tweenhurtvolume(float val, float time)
+    {
+        hurtvolumelt = LeanTween.value(hurtvolume.weight, val, time).setOnUpdate(updateHurtVolume).id;
+    }
+    void updateHurtVolume(float value)
+    {
+        hurtvolume.weight = value;
+    }
+
 }

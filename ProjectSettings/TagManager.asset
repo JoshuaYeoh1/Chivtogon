@@ -10,6 +10,9 @@ TagManager:
   - FaceBox
   - ParryBox
   - Prop
+  - dmgvig
+  - globalvolume
+  - hurtvolume
   layers:
   - Default
   - TransparentFX
