@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3379886923965313205}
   - component: {fileID: 4965940506338203045}
   - component: {fileID: 6943962007088830721}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -151,7 +151,7 @@ GameObject:
   - component: {fileID: 2118100836290790632}
   m_Layer: 0
   m_Name: Weapons
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -475,6 +475,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b20f288c4d6087f428a34eeaedc74bb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  turn: {fileID: 0}
+  attack: {fileID: 0}
+  parry: {fileID: 0}
   ovPa: {fileID: 0}
   anim: {fileID: 3582146768750158120}
   trigger: {fileID: 3719732726321919250}
@@ -625,6 +628,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5493087387c23d7428070ab563a1f9f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  swipeRange: 50
+  tapRange: 10
 --- !u!1 &5106083080487964445
 GameObject:
   m_ObjectHideFlags: 0
@@ -1739,7 +1744,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 31c956724be1c6f499559a51671d910d,
         type: 3}
       propertyPath: m_TagString
-      value: Player
+      value: Untagged
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1949,7 +1954,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: f2767ca9a30a31f45a70ffb0510106ee,
         type: 3}
       propertyPath: m_TagString
-      value: Player
+      value: Untagged
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2390,7 +2395,7 @@ PrefabInstance:
     - target: {fileID: -8693097206844968066, guid: 0de244c54bfd2114e96fb138e1506a24,
         type: 3}
       propertyPath: m_TagString
-      value: Player
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0de244c54bfd2114e96fb138e1506a24,
         type: 3}
@@ -2470,12 +2475,12 @@ PrefabInstance:
     - target: {fileID: -8491621057233565286, guid: 0de244c54bfd2114e96fb138e1506a24,
         type: 3}
       propertyPath: m_TagString
-      value: Player
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: -7707387569847915376, guid: 0de244c54bfd2114e96fb138e1506a24,
         type: 3}
       propertyPath: m_TagString
-      value: Player
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: -7215912017741602320, guid: 0de244c54bfd2114e96fb138e1506a24,
         type: 3}
@@ -2485,52 +2490,52 @@ PrefabInstance:
     - target: {fileID: -7215912017741602320, guid: 0de244c54bfd2114e96fb138e1506a24,
         type: 3}
       propertyPath: m_TagString
-      value: Player
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: -6870445333923714487, guid: 0de244c54bfd2114e96fb138e1506a24,
         type: 3}
       propertyPath: m_TagString
-      value: Player
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: -6554769426457789733, guid: 0de244c54bfd2114e96fb138e1506a24,
         type: 3}
       propertyPath: m_TagString
-      value: Player
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: -6432479174781370680, guid: 0de244c54bfd2114e96fb138e1506a24,
         type: 3}
       propertyPath: m_TagString
-      value: Player
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: -6355356553193598905, guid: 0de244c54bfd2114e96fb138e1506a24,
         type: 3}
       propertyPath: m_TagString
-      value: Player
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: -5891325977771096572, guid: 0de244c54bfd2114e96fb138e1506a24,
         type: 3}
       propertyPath: m_TagString
-      value: Player
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: -5662058364645370601, guid: 0de244c54bfd2114e96fb138e1506a24,
         type: 3}
       propertyPath: m_TagString
-      value: Player
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: -5527726888727838653, guid: 0de244c54bfd2114e96fb138e1506a24,
         type: 3}
       propertyPath: m_TagString
-      value: Player
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: -5421045387556740895, guid: 0de244c54bfd2114e96fb138e1506a24,
         type: 3}
       propertyPath: m_TagString
-      value: Player
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: -3498740457583870468, guid: 0de244c54bfd2114e96fb138e1506a24,
         type: 3}
       propertyPath: m_TagString
-      value: Player
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: -2706142982164333209, guid: 0de244c54bfd2114e96fb138e1506a24,
         type: 3}
@@ -2540,12 +2545,12 @@ PrefabInstance:
     - target: {fileID: -2706142982164333209, guid: 0de244c54bfd2114e96fb138e1506a24,
         type: 3}
       propertyPath: m_TagString
-      value: Player
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: -188421680358430552, guid: 0de244c54bfd2114e96fb138e1506a24,
         type: 3}
       propertyPath: m_TagString
-      value: Player
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 0de244c54bfd2114e96fb138e1506a24,
         type: 3}
@@ -2560,12 +2565,12 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 0de244c54bfd2114e96fb138e1506a24,
         type: 3}
       propertyPath: m_TagString
-      value: Player
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 1415582531349676029, guid: 0de244c54bfd2114e96fb138e1506a24,
         type: 3}
       propertyPath: m_TagString
-      value: Player
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 2205761606331046806, guid: 0de244c54bfd2114e96fb138e1506a24,
         type: 3}
@@ -2575,12 +2580,12 @@ PrefabInstance:
     - target: {fileID: 2205761606331046806, guid: 0de244c54bfd2114e96fb138e1506a24,
         type: 3}
       propertyPath: m_TagString
-      value: Player
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 2647981002379606401, guid: 0de244c54bfd2114e96fb138e1506a24,
         type: 3}
       propertyPath: m_TagString
-      value: Player
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 2768490493610040150, guid: 0de244c54bfd2114e96fb138e1506a24,
         type: 3}
@@ -2590,17 +2595,17 @@ PrefabInstance:
     - target: {fileID: 2768490493610040150, guid: 0de244c54bfd2114e96fb138e1506a24,
         type: 3}
       propertyPath: m_TagString
-      value: Player
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 2790018665771910157, guid: 0de244c54bfd2114e96fb138e1506a24,
         type: 3}
       propertyPath: m_TagString
-      value: Player
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 2990127585183956114, guid: 0de244c54bfd2114e96fb138e1506a24,
         type: 3}
       propertyPath: m_TagString
-      value: Player
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 3027896407205900740, guid: 0de244c54bfd2114e96fb138e1506a24,
         type: 3}
@@ -2670,12 +2675,12 @@ PrefabInstance:
     - target: {fileID: 3029523901680860589, guid: 0de244c54bfd2114e96fb138e1506a24,
         type: 3}
       propertyPath: m_TagString
-      value: Player
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 4677361591963209373, guid: 0de244c54bfd2114e96fb138e1506a24,
         type: 3}
       propertyPath: m_TagString
-      value: Player
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 5528860797864257434, guid: 0de244c54bfd2114e96fb138e1506a24,
         type: 3}
@@ -2685,7 +2690,7 @@ PrefabInstance:
     - target: {fileID: 5528860797864257434, guid: 0de244c54bfd2114e96fb138e1506a24,
         type: 3}
       propertyPath: m_TagString
-      value: Player
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: 0de244c54bfd2114e96fb138e1506a24,
         type: 3}
@@ -2710,12 +2715,12 @@ PrefabInstance:
     - target: {fileID: 6074292858617069820, guid: 0de244c54bfd2114e96fb138e1506a24,
         type: 3}
       propertyPath: m_TagString
-      value: Player
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 6132108830722087800, guid: 0de244c54bfd2114e96fb138e1506a24,
         type: 3}
       propertyPath: m_TagString
-      value: Player
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 6402032166694934484, guid: 0de244c54bfd2114e96fb138e1506a24,
         type: 3}
@@ -2725,27 +2730,27 @@ PrefabInstance:
     - target: {fileID: 6402032166694934484, guid: 0de244c54bfd2114e96fb138e1506a24,
         type: 3}
       propertyPath: m_TagString
-      value: Player
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 7036213049465896255, guid: 0de244c54bfd2114e96fb138e1506a24,
         type: 3}
       propertyPath: m_TagString
-      value: Player
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 7580439827880847903, guid: 0de244c54bfd2114e96fb138e1506a24,
         type: 3}
       propertyPath: m_TagString
-      value: Player
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 7703922893154117233, guid: 0de244c54bfd2114e96fb138e1506a24,
         type: 3}
       propertyPath: m_TagString
-      value: Player
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 7941589840095251265, guid: 0de244c54bfd2114e96fb138e1506a24,
         type: 3}
       propertyPath: m_TagString
-      value: Player
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 8000248838673885702, guid: 0de244c54bfd2114e96fb138e1506a24,
         type: 3}
@@ -2755,7 +2760,7 @@ PrefabInstance:
     - target: {fileID: 8000248838673885702, guid: 0de244c54bfd2114e96fb138e1506a24,
         type: 3}
       propertyPath: m_TagString
-      value: Player
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 8327223564818308900, guid: 0de244c54bfd2114e96fb138e1506a24,
         type: 3}
@@ -2765,12 +2770,12 @@ PrefabInstance:
     - target: {fileID: 8327223564818308900, guid: 0de244c54bfd2114e96fb138e1506a24,
         type: 3}
       propertyPath: m_TagString
-      value: Player
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 8828788978019156812, guid: 0de244c54bfd2114e96fb138e1506a24,
         type: 3}
       propertyPath: m_TagString
-      value: Player
+      value: Untagged
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
@@ -3273,7 +3278,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 319c3488c9f31c741ad8fc98ee107d5c,
         type: 3}
       propertyPath: m_TagString
-      value: Player
+      value: Untagged
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

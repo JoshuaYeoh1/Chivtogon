@@ -11,7 +11,7 @@ public class Enemy : MonoBehaviour
     EnemyLineUp lineup;
     EnemyAttack attack;
     EnemyParry parry;
-    HPManager hp;
+    HPManager hp, playerhp;
     [HideInInspector] public OverheadParry ovPa;
     public Animator anim;
     public GameObject trigger, weapon;
@@ -29,6 +29,7 @@ public class Enemy : MonoBehaviour
         parry=GetComponent<EnemyParry>();
         hp=GetComponent<HPManager>();
         ovPa=GetComponent<OverheadParry>();
+        playerhp=GameObject.FindGameObjectWithTag("Player").GetComponent<HPManager>();
     }
 
     void OnTriggerEnter(Collider other)
@@ -82,6 +83,8 @@ public class Enemy : MonoBehaviour
         weapon.SetActive(false);
 
         StartCoroutine(sinkAnim());
+
+        playerhp.hp = playerhp.hpmax;
 
         Singleton.instance.playerKills++;
         Singleton.instance.enemiesAlive--;
