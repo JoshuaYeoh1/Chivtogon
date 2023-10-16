@@ -12,6 +12,8 @@ public class Player : MonoBehaviour
     [HideInInspector] public OverheadParry ovPa;
     public Animator anim;
     public GameObject trigger, weapon;
+    WiggleRotate camshake;
+    public Transform firstperson;
 
     void Awake()
     {
@@ -21,6 +23,7 @@ public class Player : MonoBehaviour
         parry=GetComponent<PlayerParry>();
         hp=GetComponent<HPManager>();
         ovPa=GetComponent<OverheadParry>();
+        camshake = GameObject.FindGameObjectWithTag("camshake").GetComponent<WiggleRotate>();
 
         Singleton.instance.player = gameObject;
 
@@ -29,11 +32,27 @@ public class Player : MonoBehaviour
         Singleton.instance.playerKills=0;
     }
 
+    void Start()
+    {
+        StartCoroutine(intro());        
+    }
+
+    IEnumerator intro()
+    {
+        firstPersonMode(0);
+
+        yield return new WaitForSeconds(2);
+
+        thirdPersonMode(1);
+    }
+
     public void hit()
     {
         ovPa.interrupt();
 
         anim.SetTrigger("hit");
+
+        camshake.shake();
     }
 
     public void die()
@@ -44,10 +63,30 @@ public class Player : MonoBehaviour
 
         anim.SetBool("mirror", Random.Range(1,3)==1);
 
+        camshake.shake();
+
+        firstPersonMode(1);
+
         Singleton.instance.playerAlive=false;
 
         coll.enabled=false;
         trigger.SetActive(false);
         weapon.SetActive(false);
+    }
+
+    void thirdPersonMode(float time)
+    {
+        Singleton.instance.cam.transform.parent = camshake.transform;
+
+        LeanTween.moveLocal(Singleton.instance.cam.gameObject, Vector3.zero, time).setEaseInOutSine();
+        LeanTween.rotateLocal(Singleton.instance.cam.gameObject, Vector3.zero, time).setEaseInOutSine();
+    }
+
+    void firstPersonMode(float time)
+    {
+        Singleton.instance.cam.transform.parent = firstperson;
+
+        LeanTween.moveLocal(Singleton.instance.cam.gameObject, Vector3.zero, time).setEaseInOutSine();
+        LeanTween.rotateLocal(Singleton.instance.cam.gameObject, Vector3.zero, time).setEaseInOutSine();
     }
 }

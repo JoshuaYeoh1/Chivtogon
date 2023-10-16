@@ -458,7 +458,7 @@ Transform:
   - {fileID: 6426519114373633309}
   - {fileID: 4343996897318155475}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1893942877253839157
 MonoBehaviour:
@@ -476,6 +476,7 @@ MonoBehaviour:
   anim: {fileID: 3582146768750158120}
   trigger: {fileID: 3719732726321919250}
   weapon: {fileID: 7784999606873542347}
+  firstperson: {fileID: 412752756642581160}
 --- !u!114 &4090430608645865379
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1414,7 +1415,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
+  near clip plane: 0.08
   far clip plane: 1000
   field of view: 60
   orthographic: 0
