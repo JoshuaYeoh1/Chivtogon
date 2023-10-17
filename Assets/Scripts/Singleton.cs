@@ -90,7 +90,7 @@ public class Singleton : MonoBehaviour
     [Header("Player")]
     public GameObject player;
     [HideInInspector] public Camera cam;
-    public bool playerAlive=true, controlsEnabled=true;
+    public bool playerAlive=true, controlsEnabled=true, doneTutorial1, doneTutorial2, doneTutorial3;
     public int playerKills;
     public int swipeRightCount,swipeLeftCount,swipeUpCount,swipeDownCount;
     

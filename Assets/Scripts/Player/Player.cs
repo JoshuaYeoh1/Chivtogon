@@ -25,7 +25,7 @@ public class Player : MonoBehaviour
     EnemySpawner spawner;
 
     GameObject tutorial1, tutorial2, tutorial3, tutorial4;
-    bool doTutorial, doneTutorial1, doneTutorial2, doneTutorial3, doneTutorial4;
+    bool doTutorial;
 
     InOutAnim hpbar, killcounter;
     TextMeshProUGUI killcounttext;
@@ -134,9 +134,9 @@ public class Player : MonoBehaviour
     {
         if(doTutorial)
         {
-            if(Singleton.instance.swipeLeftCount>0 && Singleton.instance.swipeRightCount>0 && !doneTutorial1)
+            if(Singleton.instance.swipeLeftCount>0 && Singleton.instance.swipeRightCount>0 && !Singleton.instance.doneTutorial1)
             {
-                doneTutorial1=true;
+                Singleton.instance.doneTutorial1=true;
 
                 LeanTween.scale(tutorial1, Vector3.zero, .25f).setEaseInBack();
                 Destroy(tutorial1, .25f);
@@ -146,9 +146,9 @@ public class Player : MonoBehaviour
                 LeanTween.scale(tutorial2, Vector3.one, .25f).setDelay(.25f).setEaseOutBack();
             }
 
-            if(Singleton.instance.swipeDownCount>0 && doneTutorial1 && !doneTutorial2)
+            if(Singleton.instance.swipeDownCount>0 && Singleton.instance.doneTutorial1 && !Singleton.instance.doneTutorial2)
             {
-                doneTutorial2=true;
+                Singleton.instance.doneTutorial2=true;
 
                 LeanTween.scale(tutorial2, Vector3.zero, .25f).setEaseInBack();
                 Destroy(tutorial2, .25f);
@@ -158,9 +158,9 @@ public class Player : MonoBehaviour
                 LeanTween.scale(tutorial3, Vector3.one, .25f).setDelay(.25f).setEaseOutBack();
             }
             
-            if(Singleton.instance.swipeUpCount>0 && doneTutorial1 && doneTutorial2 && !doneTutorial3)
+            if(Singleton.instance.swipeUpCount>0 && Singleton.instance.doneTutorial1 && Singleton.instance.doneTutorial2 && !Singleton.instance.doneTutorial3)
             {
-                doneTutorial3=true;
+                Singleton.instance.doneTutorial3=true;
 
                 LeanTween.scale(tutorial3, Vector3.zero, .25f).setEaseInBack();
                 Destroy(tutorial3, .25f);

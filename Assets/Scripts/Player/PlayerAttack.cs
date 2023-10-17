@@ -21,7 +21,7 @@ public class PlayerAttack : MonoBehaviour
 
     public void attack()
     {
-        if(Singleton.instance.playerAlive && Singleton.instance.controlsEnabled)
+        if(Singleton.instance.playerAlive && Singleton.instance.controlsEnabled && Singleton.instance.doneTutorial1)
         {
             ovPa.overhead();
 

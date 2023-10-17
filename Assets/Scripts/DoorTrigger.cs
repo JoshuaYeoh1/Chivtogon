@@ -20,7 +20,7 @@ public class DoorTrigger : MonoBehaviour
         if(count==0)
         {
             LeanTween.cancel(doorLt);
-            doorLt = LeanTween.rotateLocal(door, new Vector3(door.transform.localEulerAngles.x,door.transform.localEulerAngles.y,-90), animTime).setEaseInOutSine().id;
+            doorLt = LeanTween.rotateLocal(door, new Vector3(door.transform.localEulerAngles.x,door.transform.localEulerAngles.y,defLocalZ-90), animTime).setEaseInOutSine().id;
 
             Singleton.instance.playSFX(sfxOpen,transform);
         }
@@ -32,7 +32,7 @@ public class DoorTrigger : MonoBehaviour
         if(count==0)
         {
             LeanTween.cancel(doorLt);
-            doorLt = LeanTween.rotateLocal(door, new Vector3(door.transform.localEulerAngles.x,door.transform.localEulerAngles.y,90), animTime*2).setEaseInOutSine().id;
+            doorLt = LeanTween.rotateLocal(door, new Vector3(door.transform.localEulerAngles.x,door.transform.localEulerAngles.y,defLocalZ+90), animTime*2).setEaseInOutSine().id;
 
             Singleton.instance.playSFX(sfxClose,transform);
         }
