@@ -24,6 +24,8 @@ public class PlayerAttack : MonoBehaviour
         if(Singleton.instance.playerAlive && Singleton.instance.controlsEnabled)
         {
             ovPa.overhead();
+
+            Singleton.instance.swipeDownCount++;
         }
     }
 }

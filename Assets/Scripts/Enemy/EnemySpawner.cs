@@ -11,7 +11,10 @@ public class EnemySpawner : MonoBehaviour
     void Start()
     {
         Singleton.instance.enemiesAlive=0;
+    }
 
+    public void startSpawning()
+    {
         spawningRt = StartCoroutine(spawning());
     }
 

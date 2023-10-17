@@ -15,6 +15,14 @@ TagManager:
   - hurtvolume
   - black
   - letterbox
+  - spawner
+  - tutorial1
+  - tutorial2
+  - tutorial3
+  - tutorial4
+  - hpbar
+  - killcounter
+  - killcounttext
   layers:
   - Default
   - TransparentFX

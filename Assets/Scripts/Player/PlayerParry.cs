@@ -29,6 +29,8 @@ public class PlayerParry : MonoBehaviour
         if(Singleton.instance.playerAlive)
         {
             ovPa.parry();
+
+            Singleton.instance.swipeUpCount++;
         }
     }
 

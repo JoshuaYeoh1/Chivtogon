@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 7e40c5513066c4a419c69b3664ab6971
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Sovngarde
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: dc6bd4c0f8b3e754c95018372c13557c, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

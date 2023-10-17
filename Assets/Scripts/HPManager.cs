@@ -11,6 +11,8 @@ public class HPManager : MonoBehaviour
     public bool iframe, regen;
     public float hp, hpmax, iframeTime=.5f, regenAmount=1, regenTime=1;
 
+    public GameObject barFill;
+
     void Awake()
     {
         if(tag=="Player")
@@ -22,17 +24,19 @@ public class HPManager : MonoBehaviour
 
         hp=hpmax;
 
-        StartCoroutine(hpregen());
+        if(regen) StartCoroutine(hpregen());
     }    
 
     public void hit(float dmg)
     {
         if(!iframe)
         {
-            hp-=dmg;
-
             if(hp>dmg)
             {
+                hp-=dmg;
+
+                updateBarFill();
+
                 StartCoroutine(iframing());
 
                 if(tag=="Player")
@@ -43,6 +47,7 @@ public class HPManager : MonoBehaviour
             else
             {
                 hp=0;
+                updateBarFill();
                 die();
             }
         }
@@ -71,11 +76,31 @@ public class HPManager : MonoBehaviour
     {
         while(true)
         {
+            yield return new WaitForSeconds(regenTime);
+
             if(hp>0 && hp<=hpmax-regenAmount && regen)
             {   
-                yield return new WaitForSeconds(regenTime);
                 hp+=regenAmount;
+                updateBarFill();
             }
         }
+    }
+
+    int barfillLt=0;
+
+    public void updateBarFill()
+    {
+        if(barFill)
+        {
+            LeanTween.cancel(barfillLt);
+
+            barfillLt = LeanTween.scaleX(barFill, hp/hpmax, .2f).setEaseOutSine().id;
+        }
+    }
+
+    void Update()
+    {
+        if(hp>hpmax) hp=hpmax;
+        else if(hp<0) hp=0;
     }
 }

@@ -29,15 +29,15 @@ public class SFXObject : MonoBehaviour
             source.spatialBlend = 0;
     }
 
-    void Update()
-    {
-        if(dynamics)
-        {
-            camRadiusX = cam.orthographicSize*16/9;
+    // void Update()
+    // {
+    //     if(dynamics)
+    //     {
+    //         camRadiusX = cam.orthographicSize*16/9;
 
-            source.panStereo = (transform.position.x-cam.transform.position.x)/camRadiusX;
-        }
-        else
-            source.panStereo = 0;
-    }
+    //         source.panStereo = (transform.position.x-cam.transform.position.x)/camRadiusX;
+    //     }
+    //     else
+    //         source.panStereo = 0;
+    // }
 }

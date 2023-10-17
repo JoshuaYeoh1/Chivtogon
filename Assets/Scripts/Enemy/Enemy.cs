@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 using UnityEngine.VFX;
 
 public class Enemy : MonoBehaviour
@@ -85,6 +86,7 @@ public class Enemy : MonoBehaviour
         StartCoroutine(sinkAnim());
 
         playerhp.hp = Mathf.RoundToInt(playerhp.hp+(playerhp.hpmax-playerhp.hp)*.8f);
+        playerhp.updateBarFill();
 
         Singleton.instance.playerKills++;
         Singleton.instance.enemiesAlive--;

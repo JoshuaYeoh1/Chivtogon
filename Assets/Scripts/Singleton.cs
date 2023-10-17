@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Audio;
 
@@ -81,6 +80,7 @@ public class Singleton : MonoBehaviour
     [HideInInspector] public Camera cam;
     public bool playerAlive=true, controlsEnabled=true;
     public int playerKills;
+    public int swipeRightCount,swipeLeftCount,swipeUpCount,swipeDownCount;
     
     [Header("Enemies")]
     public int enemiesAlive;

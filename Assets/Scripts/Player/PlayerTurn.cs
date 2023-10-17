@@ -9,6 +9,8 @@ public class PlayerTurn : MonoBehaviour
     public bool canTurn=true;
     public float turnTime=.2f;
 
+    public AudioClip[] sfxWindUp;
+
     void Update()
     {
         if(Singleton.instance.controlsEnabled)
@@ -29,6 +31,8 @@ public class PlayerTurn : MonoBehaviour
         if(canTurn && Singleton.instance.playerAlive)
         {
             turnRt = StartCoroutine(turn(-1));
+
+            Singleton.instance.swipeLeftCount++;
         }
     }
 
@@ -37,6 +41,8 @@ public class PlayerTurn : MonoBehaviour
         if(canTurn && Singleton.instance.playerAlive)
         {
             turnRt = StartCoroutine(turn(1));
+
+            Singleton.instance.swipeRightCount++;
         }
     }
 
@@ -45,6 +51,8 @@ public class PlayerTurn : MonoBehaviour
     IEnumerator turn(int dir)
     {
         canTurn=false;
+
+        Singleton.instance.playSFX(sfxWindUp,transform);
 
         if(dir<0)
             anim.SetTrigger("turnleft");

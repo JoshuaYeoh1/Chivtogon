@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.VFX;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class Player : MonoBehaviour
 {
@@ -21,6 +22,13 @@ public class Player : MonoBehaviour
     InOutAnim dmgvig, black;
     Volume hurtvolume;
     Letterbox letterbox;
+    EnemySpawner spawner;
+
+    GameObject tutorial1, tutorial2, tutorial3, tutorial4;
+    bool doTutorial, doneTutorial1, doneTutorial2, doneTutorial3, doneTutorial4;
+
+    InOutAnim hpbar, killcounter;
+    TextMeshProUGUI killcounttext;
 
     void Awake()
     {
@@ -35,6 +43,20 @@ public class Player : MonoBehaviour
         black = GameObject.FindGameObjectWithTag("black").GetComponent<InOutAnim>();
         hurtvolume = GameObject.FindGameObjectWithTag("hurtvolume").GetComponent<Volume>();
         letterbox = GameObject.FindGameObjectWithTag("letterbox").GetComponent<Letterbox>();
+        spawner = GameObject.FindGameObjectWithTag("spawner").GetComponent<EnemySpawner>();
+
+        tutorial1 = GameObject.FindGameObjectWithTag("tutorial1");
+        tutorial2 = GameObject.FindGameObjectWithTag("tutorial2");
+        tutorial3 = GameObject.FindGameObjectWithTag("tutorial3");
+        tutorial4 = GameObject.FindGameObjectWithTag("tutorial4");
+        tutorial1.SetActive(false);
+        tutorial2.SetActive(false);
+        tutorial3.SetActive(false);
+        tutorial4.SetActive(false);
+
+        hpbar = GameObject.FindGameObjectWithTag("hpbar").GetComponent<InOutAnim>();
+        killcounter = GameObject.FindGameObjectWithTag("killcounter").GetComponent<InOutAnim>();
+        killcounttext = GameObject.FindGameObjectWithTag("killcounttext").GetComponent<TextMeshProUGUI>();
     }
 
     void Start()
@@ -70,9 +92,90 @@ public class Player : MonoBehaviour
 
         yield return new WaitForSeconds(.5f);
 
+        thirdPersonMode(2);
+
         Singleton.instance.controlsEnabled=true;
 
-        thirdPersonMode(2);
+        if(Singleton.instance.swipeDownCount>0 && Singleton.instance.swipeRightCount>0 && Singleton.instance.swipeLeftCount>0 && Singleton.instance.swipeUpCount>0)
+        {
+            startTheRound();
+        }    
+        else
+        {
+            doTutorial=true;
+
+            tutorial1.SetActive(true);
+            tutorial1.transform.localScale = Vector3.zero;
+            LeanTween.scale(tutorial1, Vector3.one, .25f).setEaseOutBack();
+        }
+    }
+
+    void Update()
+    {
+        if(doTutorial)
+        {
+            if(Singleton.instance.swipeLeftCount>0 && Singleton.instance.swipeRightCount>0 && !doneTutorial1)
+            {
+                doneTutorial1=true;
+
+                LeanTween.scale(tutorial1, Vector3.zero, .25f).setEaseInBack();
+                Destroy(tutorial1, .25f);
+
+                tutorial2.SetActive(true);
+                tutorial2.transform.localScale = Vector3.zero;
+                LeanTween.scale(tutorial2, Vector3.one, .25f).setDelay(.25f).setEaseOutBack();
+            }
+
+            if(Singleton.instance.swipeDownCount>0 && doneTutorial1 && !doneTutorial2)
+            {
+                doneTutorial2=true;
+
+                LeanTween.scale(tutorial2, Vector3.zero, .25f).setEaseInBack();
+                Destroy(tutorial2, .25f);
+
+                tutorial3.SetActive(true);
+                tutorial3.transform.localScale = Vector3.zero;
+                LeanTween.scale(tutorial3, Vector3.one, .25f).setDelay(.25f).setEaseOutBack();
+            }
+            
+            if(Singleton.instance.swipeUpCount>0 && doneTutorial1 && doneTutorial2 && !doneTutorial3)
+            {
+                doneTutorial3=true;
+
+                LeanTween.scale(tutorial3, Vector3.zero, .25f).setEaseInBack();
+                Destroy(tutorial3, .25f);
+
+                StartCoroutine(showTutorial4());
+            }
+        }
+
+        killcounttext.text = Singleton.instance.playerKills.ToString();
+    }
+
+    IEnumerator showTutorial4()
+    {
+        tutorial4.SetActive(true);
+        tutorial4.transform.localScale = Vector3.zero;
+        LeanTween.scale(tutorial4, Vector3.one, .25f).setDelay(.25f).setEaseOutBack();
+
+        yield return new WaitForSeconds(6);
+
+        LeanTween.scale(tutorial4, Vector3.zero, .25f).setEaseInBack();
+        Destroy(tutorial4, .25f);
+
+        yield return new WaitForSeconds(.25f);
+
+        doTutorial=false;
+
+        startTheRound();
+    }
+
+    void startTheRound()
+    {
+        spawner.startSpawning();
+        
+        hpbar.animIn(.2f);
+        killcounter.animIn(.2f);
     }
 
     public void hit()
@@ -122,6 +225,9 @@ public class Player : MonoBehaviour
     IEnumerator outro()
     {
         Singleton.instance.controlsEnabled=false;
+
+        hpbar.animOut(.2f);
+        killcounter.animOut(.2f);
 
         yield return new WaitForSeconds(2.5f);
 

@@ -360,6 +360,20 @@ MonoBehaviour:
   door: {fileID: 9167161649989501124}
   defLocalZ: 0
   animTime: 0.5
+  sfxOpen:
+  - {fileID: 8300000, guid: 6ae9ec984fa27104f8cf3b8bdae44bfc, type: 3}
+  - {fileID: 8300000, guid: e02102f5fc294a749b03456cab1defb5, type: 3}
+  - {fileID: 8300000, guid: 950f2a7fd28fad342b7be2495bbf9e5f, type: 3}
+  - {fileID: 8300000, guid: 156a90cee2e75fa4daa6f7c180505450, type: 3}
+  - {fileID: 8300000, guid: be462bd9ba6c1934bbd5aa9f46b6fb5f, type: 3}
+  - {fileID: 8300000, guid: bd6f750429c327e4d996789c7f629952, type: 3}
+  sfxClose:
+  - {fileID: 8300000, guid: 9d5fc21155f2ce54c8331727e42788a1, type: 3}
+  - {fileID: 8300000, guid: 8629809f6aeb88846af532d96e095206, type: 3}
+  - {fileID: 8300000, guid: ddce7da5495b06d45ae5d6726d588a5c, type: 3}
+  - {fileID: 8300000, guid: a4ae5f576d49779408125ed3a55cc1f8, type: 3}
+  - {fileID: 8300000, guid: 7bca3aa79c23eac43bd238532b596ebb, type: 3}
+  - {fileID: 8300000, guid: ac4e7cc499f0cad47a3c5c030bf81b93, type: 3}
 --- !u!1 &7066647259639335154
 GameObject:
   m_ObjectHideFlags: 0

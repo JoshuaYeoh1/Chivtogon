@@ -18,6 +18,8 @@ public class OverheadParry : MonoBehaviour
     public float parryTime=0, protectTime=.4f, unparryTimeSlow=.4f;
     Coroutine parryRt;
 
+    public AudioClip[] sfxWindUp;
+
     void Awake()
     {
         weaponHitbox.SetActive(false);
@@ -37,24 +39,38 @@ public class OverheadParry : MonoBehaviour
 
         anim.SetBool("swinging", true);
         anim.SetTrigger("swing");
+        anim.SetBool("mirror",false);
+
+        Singleton.instance.playSFX(sfxWindUp,transform);
 
         yield return new WaitForSeconds(windUpTime);
 
         windingUp=false;
 
-        weaponHitbox.SetActive(true);
+        enableWeaponHitbox();
 
         yield return new WaitForSeconds(swingCooldown*.25f);
 
-        weaponHitbox.SetActive(false);
+        disableWeaponHitbox();
 
         yield return new WaitForSeconds(swingCooldown*.75f);
+
+        yield return new WaitForSeconds(swingCooldown);
 
         anim.SetBool("swinging", false);
 
         canOverhead=canParry=true;
     }
 
+    public void enableWeaponHitbox()
+    {
+        weaponHitbox.SetActive(true);
+    }
+    public void disableWeaponHitbox()
+    {
+        weaponHitbox.SetActive(false);
+    }
+    
     public void cancelOverhead()
     {
         if(overheadRt!=null)
@@ -99,6 +115,8 @@ public class OverheadParry : MonoBehaviour
     public IEnumerator parryyy()
     {
         canOverhead=canParry=false;
+
+        Singleton.instance.playSFX(sfxWindUp,transform);
 
         yield return new WaitForSeconds(parryTime);
 
