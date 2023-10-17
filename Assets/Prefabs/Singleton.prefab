@@ -153,7 +153,12 @@ MonoBehaviour:
   musicSource: {fileID: 2381501240345464873}
   ambSource: {fileID: 2158029027335330488}
   music:
+  - {fileID: 8300000, guid: 28139fdcd1d9a6b4ba314c2182e3390e, type: 3}
+  - {fileID: 8300000, guid: ba2f008b7b22904479c39b5b65993abd, type: 3}
   - {fileID: 8300000, guid: 5c4f0229143de364b80d993168142875, type: 3}
+  - {fileID: 8300000, guid: 37898f46f77c24d4897bd7cefcd62172, type: 3}
+  - {fileID: 8300000, guid: e86a44ab053fae146913828da618e49a, type: 3}
+  - {fileID: 8300000, guid: a07807229af4c6f4d9460c2afdda6fb7, type: 3}
   ambient:
   - {fileID: 8300000, guid: 22b493e9313d04a46a162d0a912a67ee, type: 3}
   player: {fileID: 0}
@@ -161,6 +166,10 @@ MonoBehaviour:
   playerAlive: 1
   controlsEnabled: 1
   playerKills: 0
+  swipeRightCount: 0
+  swipeLeftCount: 0
+  swipeUpCount: 0
+  swipeDownCount: 0
   enemiesAlive: 0
 --- !u!82 &2381501240345464873
 AudioSource:
@@ -171,7 +180,8 @@ AudioSource:
   m_GameObject: {fileID: 5813177997569389533}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -5264747507166472462, guid: 4a36679b21a022f43b04dd7a996920c7,
+    type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
@@ -267,7 +277,8 @@ AudioSource:
   m_GameObject: {fileID: 5813177997569389533}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -1775126937349135684, guid: 4a36679b21a022f43b04dd7a996920c7,
+    type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1

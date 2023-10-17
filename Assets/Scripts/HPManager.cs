@@ -13,6 +13,12 @@ public class HPManager : MonoBehaviour
 
     public GameObject barFill;
 
+    [HideInInspector] public string enemyWeaponType;
+
+    public AudioClip[] sfxHurtBlunt, sfxHurtAxe, sfxHurtBlade;
+    public AudioClip[] sfxDieBlunt, sfxDieAxe, sfxDieBlade;
+    public AudioClip[] sfxSubwoofer;
+
     void Awake()
     {
         if(tag=="Player")
@@ -43,13 +49,51 @@ public class HPManager : MonoBehaviour
                     player.hit();
                 else
                     enemy.hit();
+
+                switch(enemyWeaponType)
+                {
+                    case "axe": Singleton.instance.playSFX(sfxHurtAxe,transform); break;
+                    case "blunt": Singleton.instance.playSFX(sfxHurtBlunt,transform); break;
+                    case "blade": Singleton.instance.playSFX(sfxHurtBlade,transform); break;
+                    default: Singleton.instance.playSFX(sfxHurtAxe,transform); break;
+                }
+
+                if(tag=="Player")
+                {
+                    if(hp>hpmax*.5f) player.voice.hurtLow(player.voicetype);
+                    else if(hp<=hpmax*.5f && hp>hpmax*.25f) player.voice.HurtMed(player.voicetype);
+                    else if(hp<=hpmax*.25f) player.voice.hurtHigh(player.voicetype);
+                }
+                else
+                {
+                    if(Random.Range(1,4)==1) enemy.voice.hurtLow(enemy.voicetype);
+                    else if(Random.Range(1,3)==1) enemy.voice.HurtMed(enemy.voicetype);
+                    else enemy.voice.hurtHigh(enemy.voicetype);
+                }
             }
             else
             {
                 hp=0;
+
                 updateBarFill();
+
+                switch(enemyWeaponType)
+                {
+                    case "axe": Singleton.instance.playSFX(sfxDieAxe,transform); break;
+                    case "blunt": Singleton.instance.playSFX(sfxDieBlunt,transform); break;
+                    case "blade": Singleton.instance.playSFX(sfxDieBlade,transform); break;
+                    default: Singleton.instance.playSFX(sfxDieAxe,transform); break;
+                }
+
+                if(tag=="Player")
+                    player.voice.death(player.voicetype);
+                else
+                    enemy.voice.death(enemy.voicetype);
+
                 die();
             }
+
+            if(tag=="Player") Singleton.instance.playSFX(sfxSubwoofer,transform);
         }
     }
 

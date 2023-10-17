@@ -13,6 +13,8 @@ public class EnemyStrafe : MonoBehaviour
     public float strafeTimeMin=.75f, strafeTimeMax=1, strafeIntervalMin=1, strafeIntervalMax=7;
     float[] surroundAngles={0,45,90,135,180,-45,-90,-135};
 
+    public AudioClip[] sfxStrafe;
+
     void Start()
     {
         enemy=GetComponent<Enemy>();
@@ -53,6 +55,10 @@ public class EnemyStrafe : MonoBehaviour
         anim.SetBool("mirror", Random.Range(1,3)==1);
 
         advance.pauseAdvance();
+
+        Singleton.instance.playSFX(sfxStrafe,transform);
+
+        enemy.voice.gruntLow(enemy.voicetype);
         
         float time = Random.Range(strafeTimeMin,strafeTimeMax);
 

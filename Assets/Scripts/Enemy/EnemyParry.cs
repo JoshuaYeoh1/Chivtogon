@@ -12,6 +12,8 @@ public class EnemyParry : MonoBehaviour
     public bool canParry=true;
     public float parryChance=.5f, feintToParryTime=.1f;
 
+    public AudioClip[] sfxParryBlunt, sfxParryAxe, sfxParryBlade;
+
     void Start()
     {
         enemy=GetComponent<Enemy>();
@@ -31,9 +33,19 @@ public class EnemyParry : MonoBehaviour
                 player.ovPa.interrupt();
 
                 enemy.vfxSpark.Play();
+
+                switch(enemy.weaponType)
+                {
+                    case "axe": Singleton.instance.playSFX(sfxParryAxe,transform); break;
+                    case "blunt": Singleton.instance.playSFX(sfxParryBlunt,transform); break;
+                    case "blade": Singleton.instance.playSFX(sfxParryBlade,transform); break;
+                    default: Singleton.instance.playSFX(sfxParryAxe,transform); break;
+                }
             }
             else
             {
+                hp.enemyWeaponType = player.weaponType;
+
                 hp.hit(10);
             }
         }

@@ -30,6 +30,12 @@ public class Player : MonoBehaviour
     InOutAnim hpbar, killcounter;
     TextMeshProUGUI killcounttext;
 
+    public SkinRandomizerScript weaponSkin;
+    [HideInInspector] public string weaponType;
+
+    [HideInInspector] public CharacterVoice voice;
+    [HideInInspector] public string voicetype;
+
     void Awake()
     {
         coll=GetComponent<CapsuleCollider>();
@@ -57,6 +63,8 @@ public class Player : MonoBehaviour
         hpbar = GameObject.FindGameObjectWithTag("hpbar").GetComponent<InOutAnim>();
         killcounter = GameObject.FindGameObjectWithTag("killcounter").GetComponent<InOutAnim>();
         killcounttext = GameObject.FindGameObjectWithTag("killcounttext").GetComponent<TextMeshProUGUI>();
+
+        voice=GetComponent<CharacterVoice>();
     }
 
     void Start()
@@ -69,7 +77,19 @@ public class Player : MonoBehaviour
 
         Singleton.instance.playerKills=0;
 
-        StartCoroutine(intro());        
+        checkWeaponType();
+
+        voicetype = voice.playerVoice[Random.Range(0,voice.playerVoice.Length)];
+
+        StartCoroutine(intro());
+    }
+
+    void checkWeaponType()
+    {
+        if(weaponSkin.skin==0) weaponType="axe";
+        else if(weaponSkin.skin==1) weaponType="blunt";
+        else if(weaponSkin.skin==2) weaponType="blade";
+        else weaponType="axe";
     }
 
     IEnumerator intro()
@@ -301,5 +321,4 @@ public class Player : MonoBehaviour
     {
         hurtvolume.weight = value;
     }
-
 }

@@ -20,6 +20,12 @@ public class Enemy : MonoBehaviour
 
     public bool facedByPlayer, dead, inDoorway;
 
+    public SkinRandomizerScript weaponSkin;
+    [HideInInspector] public string weaponType;
+
+    [HideInInspector] public CharacterVoice voice;
+    [HideInInspector] public string voicetype;
+
     void Start()
     {
         coll=GetComponent<CapsuleCollider>();
@@ -31,6 +37,20 @@ public class Enemy : MonoBehaviour
         hp=GetComponent<HPManager>();
         ovPa=GetComponent<OverheadParry>();
         playerhp=GameObject.FindGameObjectWithTag("Player").GetComponent<HPManager>();
+
+        checkWeaponType();
+
+        voice=GetComponent<CharacterVoice>();
+
+        voicetype = voice.enemyVoice[Random.Range(0,voice.enemyVoice.Length)];
+    }
+
+    void checkWeaponType()
+    {
+        if(weaponSkin.skin==0) weaponType="axe";
+        else if(weaponSkin.skin==1) weaponType="blunt";
+        else if(weaponSkin.skin==2) weaponType="blade";
+        else weaponType="axe";
     }
 
     void OnTriggerEnter(Collider other)

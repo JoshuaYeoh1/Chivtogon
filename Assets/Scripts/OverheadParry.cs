@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class OverheadParry : MonoBehaviour
 {
+    Player player;
+    Enemy enemy;
     public Animator anim;
 
     [Header("Overhead")]
@@ -18,10 +20,13 @@ public class OverheadParry : MonoBehaviour
     public float parryTime=0, protectTime=.4f, unparryTimeSlow=.4f;
     Coroutine parryRt;
 
-    public AudioClip[] sfxWindUp;
-
     void Awake()
     {
+        if(tag=="Player")
+            player=GetComponent<Player>();
+        else
+            enemy=GetComponent<Enemy>();
+
         weaponHitbox.SetActive(false);
     }
 
@@ -41,11 +46,14 @@ public class OverheadParry : MonoBehaviour
         anim.SetTrigger("swing");
         anim.SetBool("mirror",false);
 
-        Singleton.instance.playSFX(sfxWindUp,transform);
-
         yield return new WaitForSeconds(windUpTime);
 
         windingUp=false;
+
+        if(tag=="Player")
+            player.voice.gruntHigh(player.voicetype);
+        else
+            enemy.voice.gruntHigh(enemy.voicetype);
 
         enableWeaponHitbox();
 
@@ -54,8 +62,6 @@ public class OverheadParry : MonoBehaviour
         disableWeaponHitbox();
 
         yield return new WaitForSeconds(swingCooldown*.75f);
-
-        yield return new WaitForSeconds(swingCooldown);
 
         anim.SetBool("swinging", false);
 
@@ -116,9 +122,12 @@ public class OverheadParry : MonoBehaviour
     {
         canOverhead=canParry=false;
 
-        Singleton.instance.playSFX(sfxWindUp,transform);
-
         yield return new WaitForSeconds(parryTime);
+
+        if(tag=="Player")
+            player.voice.gruntLow(player.voicetype);
+        else
+            enemy.voice.gruntLow(enemy.voicetype);
 
         parrying=true;
 

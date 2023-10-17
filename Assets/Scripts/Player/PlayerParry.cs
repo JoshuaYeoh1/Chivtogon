@@ -9,6 +9,8 @@ public class PlayerParry : MonoBehaviour
     OverheadParry ovPa;
     public PlayerParryBox ppb;
 
+    public AudioClip[] sfxParryBlunt, sfxParryAxe, sfxParryBlade;
+
     void Awake()
     {
         player = GetComponent<Player>();
@@ -45,9 +47,19 @@ public class PlayerParry : MonoBehaviour
                 other.GetComponent<EnemyWeapon>().ovPa.interrupt();
 
                 player.vfxSpark.Play();
+
+                switch(player.weaponType)
+                {
+                    case "axe": Singleton.instance.playSFX(sfxParryAxe,transform); break;
+                    case "blunt": Singleton.instance.playSFX(sfxParryBlunt,transform); break;
+                    case "blade": Singleton.instance.playSFX(sfxParryBlade,transform); break;
+                    default: Singleton.instance.playSFX(sfxParryAxe,transform); break;
+                }
             }
             else
             {
+                hp.enemyWeaponType = other.GetComponent<EnemyWeapon>().parent.GetComponent<Enemy>().weaponType;
+
                 hp.hit(10);
             }
         }

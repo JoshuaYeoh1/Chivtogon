@@ -656,6 +656,7 @@ GameObject:
   - component: {fileID: 4301354240124685781}
   - component: {fileID: 842069456341332851}
   - component: {fileID: 8881214246189826841}
+  - component: {fileID: 3067041900909763023}
   m_Layer: 12
   m_Name: Prop
   m_TagString: Prop
@@ -758,3 +759,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &3067041900909763023
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7254710307832541283}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64005da99c3be164cb63e50d7e256712, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sfxWoodPhy:
+  - {fileID: 8300000, guid: 53d829ab05291064aa05622e5f08b986, type: 3}
+  - {fileID: 8300000, guid: a699bb23a4c0f44458a979e45044c923, type: 3}
+  - {fileID: 8300000, guid: 29adef31e68c1f44088613ae0231556c, type: 3}
+  - {fileID: 8300000, guid: 9f439a5f5093333489eb7074ea4c986d, type: 3}

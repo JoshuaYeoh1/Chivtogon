@@ -27,11 +27,23 @@ public class Singleton : MonoBehaviour
     {
         LoadVolume();
 
-        musicSource.clip = music[(Random.Range(0,music.Length))];
-        musicSource.Play();
+        musicRt = StartCoroutine(nextMusic());
         
-        ambSource.clip = ambient[(Random.Range(0,ambient.Length))];
+        ambSource.clip = ambient[Random.Range(0,ambient.Length)];
         ambSource.Play();
+    }
+
+    Coroutine musicRt;
+
+    IEnumerator nextMusic()
+    {
+        while(true)
+        {
+            musicSource.clip = music[Random.Range(0,music.Length)];
+            musicSource.Play();
+
+            yield return new WaitForSeconds(musicSource.clip.length);
+        }
     }
 
     [Header("Audio Manager")]
