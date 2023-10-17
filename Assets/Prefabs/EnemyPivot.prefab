@@ -535,8 +535,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   iframe: 0
-  hp: 0
-  hpmax: 2
+  hp: 20
+  hpmax: 20
   iframeTime: 0.5
 --- !u!1 &6129577774305185177
 GameObject:

@@ -8,8 +8,8 @@ public class HPManager : MonoBehaviour
     Enemy enemy;
     //[HideInInspector] public OverheadParry ovPa;
     //public Animator anim;
-    public bool iframe;
-    public float hp, hpmax, iframeTime=.5f;
+    public bool iframe, regen;
+    public float hp, hpmax, iframeTime=.5f, regenAmount=1, regenTime=1;
 
     void Awake()
     {
@@ -21,18 +21,20 @@ public class HPManager : MonoBehaviour
         //ovPa=GetComponent<OverheadParry>();
 
         hp=hpmax;
+
+        StartCoroutine(hpregen());
     }    
 
-    public void hit()
+    public void hit(float dmg)
     {
         if(!iframe)
         {
-            StartCoroutine(iframing());
-            
-            hp--;
+            hp-=dmg;
 
-            if(hp>0)
+            if(hp>dmg)
             {
+                StartCoroutine(iframing());
+
                 if(tag=="Player")
                     player.hit();
                 else
@@ -40,6 +42,7 @@ public class HPManager : MonoBehaviour
             }
             else
             {
+                hp=0;
                 die();
             }
         }
@@ -62,5 +65,17 @@ public class HPManager : MonoBehaviour
         yield return new WaitForSeconds(iframeTime);
 
         iframe=false;
+    }
+    
+    IEnumerator hpregen()
+    {
+        while(true)
+        {
+            if(hp>0 && hp<=hpmax-regenAmount && regen)
+            {   
+                yield return new WaitForSeconds(regenTime);
+                hp+=regenAmount;
+            }
+        }
     }
 }

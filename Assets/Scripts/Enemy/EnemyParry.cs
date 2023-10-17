@@ -34,7 +34,7 @@ public class EnemyParry : MonoBehaviour
             }
             else
             {
-                hp.hit();
+                hp.hit(10);
             }
         }
     }

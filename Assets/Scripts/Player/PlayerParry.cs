@@ -46,7 +46,7 @@ public class PlayerParry : MonoBehaviour
             }
             else
             {
-                hp.hit();
+                hp.hit(10);
             }
         }
     }
