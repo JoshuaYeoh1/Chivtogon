@@ -230,7 +230,7 @@ public class Player : MonoBehaviour
 
         dmgvig.animIn(.1f);
 
-        tweenhurtvolume(.3f,.1f);
+        tweenhurtvolume(Random.Range(.5f,1),.1f);
 
         firstPersonMode(.5f);
 
@@ -303,7 +303,7 @@ public class Player : MonoBehaviour
     {
         dmgvig.animIn(.1f);
 
-        tweenhurtvolume(.3f,.1f);
+        tweenhurtvolume(Random.Range(.5f,1),.1f);
 
         yield return new WaitForSeconds(.1f);
 
