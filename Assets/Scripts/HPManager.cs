@@ -33,7 +33,7 @@ public class HPManager : MonoBehaviour
         if(regen) StartCoroutine(hpregen());
     }    
 
-    public void hit(float dmg)
+    public void hit(float dmg, bool interrupt=true)
     {
         if(!iframe)
         {
@@ -46,9 +46,9 @@ public class HPManager : MonoBehaviour
                 StartCoroutine(iframing());
 
                 if(tag=="Player")
-                    player.hit();
+                    player.hit(interrupt);
                 else
-                    enemy.hit();
+                    enemy.hit(interrupt);
 
                 switch(enemyWeaponType)
                 {

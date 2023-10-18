@@ -199,9 +199,9 @@ public class Player : MonoBehaviour
         killcounter.animIn(.2f);
     }
 
-    public void hit()
+    public void hit(bool interrupt=true)
     {
-        ovPa.interrupt();
+        if(interrupt) ovPa.interrupt();
 
         anim.SetTrigger("hit");
 

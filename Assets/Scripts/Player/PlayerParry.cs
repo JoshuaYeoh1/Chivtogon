@@ -60,7 +60,14 @@ public class PlayerParry : MonoBehaviour
             {
                 hp.enemyWeaponType = other.GetComponent<EnemyWeapon>().parent.GetComponent<Enemy>().weaponType;
 
-                hp.hit(10);
+                if(ppb.parryableTargets.Contains(other.GetComponent<EnemyWeapon>().parent))
+                {
+                    hp.hit(10);
+                }
+                else
+                {
+                    hp.hit(5,false);
+                }
             }
         }
     }

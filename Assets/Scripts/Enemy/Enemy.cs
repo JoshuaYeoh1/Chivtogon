@@ -78,9 +78,9 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    public void hit()
+    public void hit(bool interrupt=true)
     {
-        ovPa.interrupt();
+        if(interrupt) ovPa.interrupt();
 
         anim.SetTrigger("hit");
 
@@ -105,7 +105,7 @@ public class Enemy : MonoBehaviour
 
         StartCoroutine(sinkAnim());
 
-        playerhp.hp = Mathf.RoundToInt(playerhp.hp+(playerhp.hpmax-playerhp.hp)*.8f);
+        playerhp.hp += Mathf.RoundToInt((playerhp.hpmax-playerhp.hp)*.5f);
         playerhp.updateBarFill();
 
         Singleton.instance.playerKills++;
