@@ -116,7 +116,8 @@ public class Player : MonoBehaviour
 
         Singleton.instance.controlsEnabled=true;
 
-        if(Application.platform!=RuntimePlatform.WindowsPlayer && Singleton.instance.swipeDownCount==0 && Singleton.instance.swipeRightCount==0 && Singleton.instance.swipeLeftCount==0 && Singleton.instance.swipeUpCount==0)
+        //if(Application.platform!=RuntimePlatform.WindowsPlayer && Singleton.instance.swipeDownCount==0 && Singleton.instance.swipeRightCount==0 && Singleton.instance.swipeLeftCount==0 && Singleton.instance.swipeUpCount==0)
+        if(Singleton.instance.swipeDownCount==0 && Singleton.instance.swipeRightCount==0 && Singleton.instance.swipeLeftCount==0 && Singleton.instance.swipeUpCount==0)
         {
             doTutorial=true;
 
