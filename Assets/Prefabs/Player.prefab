@@ -494,7 +494,7 @@ Transform:
   - {fileID: 1676185710266206173}
   - {fileID: 6939818849351135250}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1893942877253839157
 MonoBehaviour:
@@ -832,7 +832,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5493087387c23d7428070ab563a1f9f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  swipeRange: 50
+  swipeRange: 150
   tapRange: 10
 --- !u!114 &-9146853109626478933
 MonoBehaviour:
