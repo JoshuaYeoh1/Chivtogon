@@ -116,11 +116,7 @@ public class Player : MonoBehaviour
 
         Singleton.instance.controlsEnabled=true;
 
-        if(Singleton.instance.swipeDownCount>0 && Singleton.instance.swipeRightCount>0 && Singleton.instance.swipeLeftCount>0 && Singleton.instance.swipeUpCount>0)
-        {
-            startTheRound();
-        }    
-        else
+        if(Application.platform!=RuntimePlatform.WindowsPlayer && Singleton.instance.swipeDownCount==0 && Singleton.instance.swipeRightCount==0 && Singleton.instance.swipeLeftCount==0 && Singleton.instance.swipeUpCount==0)
         {
             doTutorial=true;
 
@@ -128,6 +124,10 @@ public class Player : MonoBehaviour
             tutorial1.transform.localScale = Vector3.zero;
             LeanTween.scale(tutorial1, Vector3.one, .25f).setEaseOutBack();
         }
+        else
+        {
+            startTheRound();
+        }   
     }
 
     void Update()
