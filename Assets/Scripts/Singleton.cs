@@ -21,6 +21,7 @@ public class Singleton : MonoBehaviour
 
         awakeAudio();
         awakePlayer();
+        Invoke("unlockFPS",.1f);
     }
 
     void awakeAudio()
@@ -101,5 +102,11 @@ public class Singleton : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player");
         cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+    }
+
+    void unlockFPS()
+    {
+        Application.targetFrameRate = 60;
+        QualitySettings.vSyncCount = 0;
     }
 }

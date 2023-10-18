@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 2685493855739940090}
   - component: {fileID: 171111486932392915}
   - component: {fileID: 2345428127892460227}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: IronGate (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -385,7 +385,7 @@ GameObject:
   - component: {fileID: 8213880352750142465}
   - component: {fileID: 105702330884149937}
   - component: {fileID: 2387582112649242337}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: BasePillar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -468,7 +468,7 @@ GameObject:
   - component: {fileID: 1162258573705874695}
   - component: {fileID: 6409010086303948064}
   - component: {fileID: 996063624830124574}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: IronGate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -634,7 +634,7 @@ GameObject:
   - component: {fileID: 1856203007389032562}
   - component: {fileID: 1921586876119065284}
   - component: {fileID: 4848300915222897161}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Doorway
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -719,9 +719,9 @@ GameObject:
   - component: {fileID: 8048013961177273436}
   - component: {fileID: 4449792644189363149}
   - component: {fileID: 1773985039465443317}
-  m_Layer: 12
+  m_Layer: 0
   m_Name: Door
-  m_TagString: Prop
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
