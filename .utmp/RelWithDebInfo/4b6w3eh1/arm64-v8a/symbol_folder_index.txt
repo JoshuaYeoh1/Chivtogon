@@ -1,0 +1,1 @@
+C:\Users\ChapCanai\Desktop\UOW\sem4\Mobile Game Development\Chivtogon\Library\Bee\Android\Prj\IL2CPP\Gradle\unityLibrary\build\intermediates\cxx\RelWithDebInfo\4b6w3eh1\obj\arm64-v8a
